@@ -660,10 +660,27 @@ namespace CNCGUI
 		#region StartBtn_Click 
 		private void StartBtn_Click(object sender, EventArgs e)
 		{
-			if (serialPortList.SelectedItem != null)
+			int baud = 0;
+			if (PortSpeed.SelectedItem == null)
 			{
-				serialPort.PortName = serialPortList.SelectedItem.ToString();
-				serialPort.BaudRate = 115200;
+				MessageBox.Show("Baudrate not select", "Error");
+			}
+			else if (!int.TryParse(PortSpeed.SelectedItem.ToString(), out baud))
+			{
+				MessageBox.Show("Invalid baudrate", "Error");
+			}
+			else if (PortsList.SelectedItem == null)
+			{
+				MessageBox.Show("Port not select", "Error");
+			}
+			else
+			{
+				serialPort.PortName = PortsList.SelectedItem.ToString();
+				serialPort.DataBits = 8;
+				serialPort.StopBits = StopBits.One;
+				serialPort.Handshake = Handshake.None;
+				serialPort.Parity = Parity.None;
+				serialPort.BaudRate = baud;
 				try
 				{
 					serialPort.Open();
@@ -685,7 +702,7 @@ namespace CNCGUI
 				}
 				catch (Exception ex)
 				{
-					MessageBox.Show(ex.Message + "\n\n" + ex.StackTrace, "Error");
+					MessageBox.Show(ex.Message, "Error");
 					setPortCloseControls();
 					if (serialPort.IsOpen)
 						serialPort.Close();
@@ -730,7 +747,7 @@ namespace CNCGUI
 		#region Set Port Open/Close Controls 
 		private void setPortCloseControls()
 		{
-			serialPortList.Enabled = true;
+			PortsList.Enabled = true;
 			ReloadBtn.Enabled = true;
 			StartBtn.Enabled = true;
 			StopBtn.Enabled = false;
@@ -740,13 +757,15 @@ namespace CNCGUI
 			UseResponseItems.Enabled = false;
 			RefreshBtn.Enabled = false;
 			Set_mm_Btn.Enabled = false;
+			Default_Btn.Enabled = false;
+			Firmware_Btn.Enabled = false;
 
 			disableControlsForPrinting();
 		}
 
 		private void setPortOpenControls()
 		{
-			serialPortList.Enabled = false;
+			PortsList.Enabled = false;
 			ReloadBtn.Enabled = false;
 			StartBtn.Enabled = false;
 			StopBtn.Enabled = true;
@@ -755,6 +774,8 @@ namespace CNCGUI
 			UseResponseItems.Enabled = true;
 			RefreshBtn.Enabled = true;
 			Set_mm_Btn.Enabled = true;
+			Default_Btn.Enabled = true;
+			Firmware_Btn.Enabled = true;
 
 			enableControlsForPrinting();
 		}
@@ -923,20 +944,20 @@ namespace CNCGUI
 		#region loadPortSelector 
 		private void loadPortSelector()
 		{
-			List<String> tList = new List<String>();
+			List<String> sortedPortsList = new List<String>();
 
-			serialPortList.Items.Clear();
+			PortsList.Items.Clear();
 
-			foreach (string s in SerialPort.GetPortNames())
-				tList.Add(s);
+			foreach (string portname in SerialPort.GetPortNames())
+				sortedPortsList.Add(portname);
 
-			if (tList.Count < 1)
+			if (sortedPortsList.Count < 1)
 				MessageBox.Show("No serial ports found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			else
 			{
-				tList.Sort();
-				serialPortList.Items.AddRange(tList.ToArray());
-				serialPortList.SelectedIndex = 0;
+				sortedPortsList.Sort();
+				PortsList.Items.AddRange(sortedPortsList.ToArray());
+				PortsList.SelectedIndex = 0;
 			}
 		}
 		#endregion
@@ -1017,12 +1038,15 @@ namespace CNCGUI
 		}
 		#endregion
 
+		#region Setting_Changed 
 		private void Setting_Changed(object sender, EventArgs e)
 		{
 			m_setting_changed = true;
 			SettingsBtn.Enabled = true;
 		}
+		#endregion
 
+		#region ClearBtn_Click 
 		private void ClearBtn_Click(object sender, EventArgs e)
 		{
 			if (TabLogGraph.SelectedIndex == 0)
@@ -1033,8 +1057,9 @@ namespace CNCGUI
 				GPlotPicture.Refresh();
 			}
 		}
+		#endregion
 
-		#region GPlot Append / Display 
+		#region GPlot Append / Display
 		private class GPoint
 		{
 			public float? Velocity;
@@ -1486,6 +1511,29 @@ namespace CNCGUI
 			// && SendCommand("\x18") == E_RESPONSE.E_OK
 				)
 				GetCncState();
+		}
+		#endregion
+
+		#region Default_Btn_Click 
+		private void Default_Btn_Click(object sender, EventArgs e)
+		{
+			if (SendCommand("$defa=1") == E_RESPONSE.E_OK)
+				GetCncState();
+		}
+		#endregion
+
+		#region Firmware_Btn_Click 
+		private void Firmware_Btn_Click(object sender, EventArgs e)
+		{
+			MessageBox.Show("Not implemented", "Error");
+			/*
+			openFileDialog.Filter = "Firmware Files|*.hex;*.bin|All files|*.*";
+			openFileDialog.FileName = "";
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				// Software reset
+			}
+			*/
 		}
 		#endregion
 	}

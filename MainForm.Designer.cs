@@ -38,12 +38,12 @@
 			this.StopBtn = new System.Windows.Forms.Button();
 			this.CommandLine = new System.Windows.Forms.TextBox();
 			this.PrintBtn = new System.Windows.Forms.Button();
-			this.serialPortList = new System.Windows.Forms.ComboBox();
+			this.PortsList = new System.Windows.Forms.ComboBox();
 			this.RowsInFileLbl = new System.Windows.Forms.Label();
 			this.SentRowsLbl = new System.Windows.Forms.Label();
 			this.StopPrintBtn = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.comboBox1 = new System.Windows.Forms.ComboBox();
+			this.PortSpeed = new System.Windows.Forms.ComboBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.ReloadBtn = new System.Windows.Forms.Button();
 			this.speedOverrideNumber = new System.Windows.Forms.NumericUpDown();
@@ -86,6 +86,15 @@
 			this.PageMotors = new System.Windows.Forms.TabPage();
 			this.PageAxises = new System.Windows.Forms.TabPage();
 			this.Page1 = new System.Windows.Forms.TabPage();
+			this.label31 = new System.Windows.Forms.Label();
+			this.CurrentA = new System.Windows.Forms.TextBox();
+			this.label30 = new System.Windows.Forms.Label();
+			this.label29 = new System.Windows.Forms.Label();
+			this.label28 = new System.Windows.Forms.Label();
+			this.CurrentZ = new System.Windows.Forms.TextBox();
+			this.CurrentY = new System.Windows.Forms.TextBox();
+			this.CurrentX = new System.Windows.Forms.TextBox();
+			this.MoveStep = new System.Windows.Forms.NumericUpDown();
 			this.MoveYMXM = new System.Windows.Forms.Button();
 			this.MoveYPXM = new System.Windows.Forms.Button();
 			this.MoveYMXP = new System.Windows.Forms.Button();
@@ -98,29 +107,6 @@
 			this.MoveXM = new System.Windows.Forms.Button();
 			this.MoveXP = new System.Windows.Forms.Button();
 			this.Page2 = new System.Windows.Forms.TabPage();
-			this.UseResponseItems = new System.Windows.Forms.CheckBox();
-			this.RefreshBtn = new System.Windows.Forms.Button();
-			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-			this.ClearBtn = new System.Windows.Forms.Button();
-			this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
-			this.TabLogGraph = new System.Windows.Forms.TabControl();
-			this.PageLog = new System.Windows.Forms.TabPage();
-			this.PageGraph = new System.Windows.Forms.TabPage();
-			this.GPlotPicture = new System.Windows.Forms.PictureBox();
-			this.Set_mm_Btn = new System.Windows.Forms.Button();
-			this.IgnoreGCodeErrors = new System.Windows.Forms.CheckBox();
-			this.ZLevel = new System.Windows.Forms.NumericUpDown();
-			this.label27 = new System.Windows.Forms.Label();
-			this.timer = new System.Windows.Forms.Timer(this.components);
-			this.MoveStep = new System.Windows.Forms.NumericUpDown();
-			this.CurrentX = new System.Windows.Forms.TextBox();
-			this.CurrentY = new System.Windows.Forms.TextBox();
-			this.CurrentZ = new System.Windows.Forms.TextBox();
-			this.label28 = new System.Windows.Forms.Label();
-			this.label29 = new System.Windows.Forms.Label();
-			this.label30 = new System.Windows.Forms.Label();
-			this.CurrentA = new System.Windows.Forms.TextBox();
-			this.label31 = new System.Windows.Forms.Label();
 			this.label32 = new System.Windows.Forms.Label();
 			this.CurrentA2 = new System.Windows.Forms.TextBox();
 			this.label33 = new System.Windows.Forms.Label();
@@ -129,6 +115,22 @@
 			this.CurrentZ2 = new System.Windows.Forms.TextBox();
 			this.CurrentY2 = new System.Windows.Forms.TextBox();
 			this.CurrentX2 = new System.Windows.Forms.TextBox();
+			this.IgnoreGCodeErrors = new System.Windows.Forms.CheckBox();
+			this.UseResponseItems = new System.Windows.Forms.CheckBox();
+			this.RefreshBtn = new System.Windows.Forms.Button();
+			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+			this.ClearBtn = new System.Windows.Forms.Button();
+			this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
+			this.TabLogGraph = new System.Windows.Forms.TabControl();
+			this.PageLog = new System.Windows.Forms.TabPage();
+			this.PageGraph = new System.Windows.Forms.TabPage();
+			this.label27 = new System.Windows.Forms.Label();
+			this.ZLevel = new System.Windows.Forms.NumericUpDown();
+			this.GPlotPicture = new System.Windows.Forms.PictureBox();
+			this.Set_mm_Btn = new System.Windows.Forms.Button();
+			this.timer = new System.Windows.Forms.Timer(this.components);
+			this.Default_Btn = new System.Windows.Forms.Button();
+			this.Firmware_Btn = new System.Windows.Forms.Button();
 			this.Log = new CNCGUI.ListViewEx();
 			this.LogColumn1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.BAUD = new CNCGUI.ComboBoxEnum();
@@ -165,13 +167,13 @@
 			this.PageMotors.SuspendLayout();
 			this.PageAxises.SuspendLayout();
 			this.Page1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.MoveStep)).BeginInit();
 			this.Page2.SuspendLayout();
 			this.TabLogGraph.SuspendLayout();
 			this.PageLog.SuspendLayout();
 			this.PageGraph.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.GPlotPicture)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.ZLevel)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.MoveStep)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.GPlotPicture)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// serialPort
@@ -242,15 +244,15 @@
 			this.PrintBtn.UseVisualStyleBackColor = true;
 			this.PrintBtn.Click += new System.EventHandler(this.PrintBtn_Click);
 			// 
-			// serialPortList
+			// PortsList
 			// 
-			this.serialPortList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.serialPortList.FormattingEnabled = true;
-			this.serialPortList.Location = new System.Drawing.Point(5, 49);
-			this.serialPortList.Margin = new System.Windows.Forms.Padding(4);
-			this.serialPortList.Name = "serialPortList";
-			this.serialPortList.Size = new System.Drawing.Size(81, 24);
-			this.serialPortList.TabIndex = 0;
+			this.PortsList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.PortsList.FormattingEnabled = true;
+			this.PortsList.Location = new System.Drawing.Point(5, 49);
+			this.PortsList.Margin = new System.Windows.Forms.Padding(4);
+			this.PortsList.Name = "PortsList";
+			this.PortsList.Size = new System.Drawing.Size(81, 24);
+			this.PortsList.TabIndex = 0;
 			// 
 			// RowsInFileLbl
 			// 
@@ -286,12 +288,12 @@
 			// 
 			// groupBox1
 			// 
-			this.groupBox1.Controls.Add(this.comboBox1);
+			this.groupBox1.Controls.Add(this.PortSpeed);
 			this.groupBox1.Controls.Add(this.label2);
 			this.groupBox1.Controls.Add(this.CommandLine);
 			this.groupBox1.Controls.Add(this.StartBtn);
 			this.groupBox1.Controls.Add(this.StopBtn);
-			this.groupBox1.Controls.Add(this.serialPortList);
+			this.groupBox1.Controls.Add(this.PortsList);
 			this.groupBox1.Controls.Add(this.ReloadBtn);
 			this.groupBox1.Location = new System.Drawing.Point(8, 6);
 			this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
@@ -302,20 +304,23 @@
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Serial";
 			// 
-			// comboBox1
+			// PortSpeed
 			// 
-			this.comboBox1.FormattingEnabled = true;
-			this.comboBox1.Items.AddRange(new object[] {
+			this.PortSpeed.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+			this.PortSpeed.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+			this.PortSpeed.FormattingEnabled = true;
+			this.PortSpeed.Items.AddRange(new object[] {
             "9600",
             "19200",
             "38400",
             "57600",
             "115200",
             "230400"});
-			this.comboBox1.Location = new System.Drawing.Point(5, 82);
-			this.comboBox1.Name = "comboBox1";
-			this.comboBox1.Size = new System.Drawing.Size(81, 24);
-			this.comboBox1.TabIndex = 1;
+			this.PortSpeed.Location = new System.Drawing.Point(5, 82);
+			this.PortSpeed.Name = "PortSpeed";
+			this.PortSpeed.Size = new System.Drawing.Size(81, 24);
+			this.PortSpeed.TabIndex = 1;
+			this.PortSpeed.Text = "115200";
 			// 
 			// label2
 			// 
@@ -810,6 +815,107 @@
 			this.Page1.Text = "Manual";
 			this.Page1.UseVisualStyleBackColor = true;
 			// 
+			// label31
+			// 
+			this.label31.AutoSize = true;
+			this.label31.Location = new System.Drawing.Point(508, 88);
+			this.label31.Name = "label31";
+			this.label31.Size = new System.Drawing.Size(17, 17);
+			this.label31.TabIndex = 20;
+			this.label31.Text = "A";
+			this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// CurrentA
+			// 
+			this.CurrentA.Location = new System.Drawing.Point(531, 85);
+			this.CurrentA.Name = "CurrentA";
+			this.CurrentA.ReadOnly = true;
+			this.CurrentA.Size = new System.Drawing.Size(97, 22);
+			this.CurrentA.TabIndex = 19;
+			this.CurrentA.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label30
+			// 
+			this.label30.AutoSize = true;
+			this.label30.Location = new System.Drawing.Point(507, 61);
+			this.label30.Name = "label30";
+			this.label30.Size = new System.Drawing.Size(17, 17);
+			this.label30.TabIndex = 18;
+			this.label30.Text = "Z";
+			this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label29
+			// 
+			this.label29.AutoSize = true;
+			this.label29.Location = new System.Drawing.Point(507, 35);
+			this.label29.Name = "label29";
+			this.label29.Size = new System.Drawing.Size(17, 17);
+			this.label29.TabIndex = 17;
+			this.label29.Text = "Y";
+			this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label28
+			// 
+			this.label28.AutoSize = true;
+			this.label28.Location = new System.Drawing.Point(507, 9);
+			this.label28.Name = "label28";
+			this.label28.Size = new System.Drawing.Size(17, 17);
+			this.label28.TabIndex = 16;
+			this.label28.Text = "X";
+			this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// CurrentZ
+			// 
+			this.CurrentZ.Location = new System.Drawing.Point(531, 58);
+			this.CurrentZ.Name = "CurrentZ";
+			this.CurrentZ.ReadOnly = true;
+			this.CurrentZ.Size = new System.Drawing.Size(97, 22);
+			this.CurrentZ.TabIndex = 15;
+			this.CurrentZ.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// CurrentY
+			// 
+			this.CurrentY.Location = new System.Drawing.Point(531, 32);
+			this.CurrentY.Name = "CurrentY";
+			this.CurrentY.ReadOnly = true;
+			this.CurrentY.Size = new System.Drawing.Size(97, 22);
+			this.CurrentY.TabIndex = 14;
+			this.CurrentY.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// CurrentX
+			// 
+			this.CurrentX.Location = new System.Drawing.Point(531, 6);
+			this.CurrentX.Name = "CurrentX";
+			this.CurrentX.ReadOnly = true;
+			this.CurrentX.Size = new System.Drawing.Size(97, 22);
+			this.CurrentX.TabIndex = 13;
+			this.CurrentX.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// MoveStep
+			// 
+			this.MoveStep.DecimalPlaces = 3;
+			this.MoveStep.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+			this.MoveStep.Location = new System.Drawing.Point(6, 6);
+			this.MoveStep.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.MoveStep.Name = "MoveStep";
+			this.MoveStep.Size = new System.Drawing.Size(76, 22);
+			this.MoveStep.TabIndex = 12;
+			this.MoveStep.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.MoveStep.ThousandsSeparator = true;
+			this.MoveStep.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			// 
 			// MoveYMXM
 			// 
 			this.MoveYMXM.Location = new System.Drawing.Point(130, 118);
@@ -944,6 +1050,93 @@
 			this.Page2.Text = "File Transfer";
 			this.Page2.UseVisualStyleBackColor = true;
 			// 
+			// label32
+			// 
+			this.label32.AutoSize = true;
+			this.label32.Location = new System.Drawing.Point(505, 87);
+			this.label32.Name = "label32";
+			this.label32.Size = new System.Drawing.Size(17, 17);
+			this.label32.TabIndex = 28;
+			this.label32.Text = "A";
+			this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// CurrentA2
+			// 
+			this.CurrentA2.Location = new System.Drawing.Point(528, 84);
+			this.CurrentA2.Name = "CurrentA2";
+			this.CurrentA2.ReadOnly = true;
+			this.CurrentA2.Size = new System.Drawing.Size(97, 22);
+			this.CurrentA2.TabIndex = 27;
+			this.CurrentA2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// label33
+			// 
+			this.label33.AutoSize = true;
+			this.label33.Location = new System.Drawing.Point(504, 60);
+			this.label33.Name = "label33";
+			this.label33.Size = new System.Drawing.Size(17, 17);
+			this.label33.TabIndex = 26;
+			this.label33.Text = "Z";
+			this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label34
+			// 
+			this.label34.AutoSize = true;
+			this.label34.Location = new System.Drawing.Point(504, 34);
+			this.label34.Name = "label34";
+			this.label34.Size = new System.Drawing.Size(17, 17);
+			this.label34.TabIndex = 25;
+			this.label34.Text = "Y";
+			this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label35
+			// 
+			this.label35.AutoSize = true;
+			this.label35.Location = new System.Drawing.Point(504, 8);
+			this.label35.Name = "label35";
+			this.label35.Size = new System.Drawing.Size(17, 17);
+			this.label35.TabIndex = 24;
+			this.label35.Text = "X";
+			this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// CurrentZ2
+			// 
+			this.CurrentZ2.Location = new System.Drawing.Point(528, 57);
+			this.CurrentZ2.Name = "CurrentZ2";
+			this.CurrentZ2.ReadOnly = true;
+			this.CurrentZ2.Size = new System.Drawing.Size(97, 22);
+			this.CurrentZ2.TabIndex = 23;
+			this.CurrentZ2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// CurrentY2
+			// 
+			this.CurrentY2.Location = new System.Drawing.Point(528, 31);
+			this.CurrentY2.Name = "CurrentY2";
+			this.CurrentY2.ReadOnly = true;
+			this.CurrentY2.Size = new System.Drawing.Size(97, 22);
+			this.CurrentY2.TabIndex = 22;
+			this.CurrentY2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// CurrentX2
+			// 
+			this.CurrentX2.Location = new System.Drawing.Point(528, 5);
+			this.CurrentX2.Name = "CurrentX2";
+			this.CurrentX2.ReadOnly = true;
+			this.CurrentX2.Size = new System.Drawing.Size(97, 22);
+			this.CurrentX2.TabIndex = 21;
+			this.CurrentX2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
+			// IgnoreGCodeErrors
+			// 
+			this.IgnoreGCodeErrors.AutoSize = true;
+			this.IgnoreGCodeErrors.Location = new System.Drawing.Point(258, 93);
+			this.IgnoreGCodeErrors.Margin = new System.Windows.Forms.Padding(4);
+			this.IgnoreGCodeErrors.Name = "IgnoreGCodeErrors";
+			this.IgnoreGCodeErrors.Size = new System.Drawing.Size(160, 21);
+			this.IgnoreGCodeErrors.TabIndex = 19;
+			this.IgnoreGCodeErrors.Text = "Ignore GCode errors";
+			this.IgnoreGCodeErrors.UseVisualStyleBackColor = true;
+			// 
 			// UseResponseItems
 			// 
 			this.UseResponseItems.AutoSize = true;
@@ -1024,6 +1217,24 @@
 			this.PageGraph.Text = "G-Plot";
 			this.PageGraph.UseVisualStyleBackColor = true;
 			// 
+			// label27
+			// 
+			this.label27.AutoSize = true;
+			this.label27.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.label27.Location = new System.Drawing.Point(6, 8);
+			this.label27.Name = "label27";
+			this.label27.Size = new System.Drawing.Size(55, 17);
+			this.label27.TabIndex = 2;
+			this.label27.Text = "Z Level";
+			// 
+			// ZLevel
+			// 
+			this.ZLevel.Location = new System.Drawing.Point(66, 6);
+			this.ZLevel.Name = "ZLevel";
+			this.ZLevel.Size = new System.Drawing.Size(51, 22);
+			this.ZLevel.TabIndex = 1;
+			this.ZLevel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
 			// GPlotPicture
 			// 
 			this.GPlotPicture.BackColor = System.Drawing.Color.Black;
@@ -1037,7 +1248,7 @@
 			// 
 			// Set_mm_Btn
 			// 
-			this.Set_mm_Btn.Location = new System.Drawing.Point(369, 12);
+			this.Set_mm_Btn.Location = new System.Drawing.Point(369, 13);
 			this.Set_mm_Btn.Margin = new System.Windows.Forms.Padding(4);
 			this.Set_mm_Btn.Name = "Set_mm_Btn";
 			this.Set_mm_Btn.Size = new System.Drawing.Size(100, 30);
@@ -1046,216 +1257,32 @@
 			this.Set_mm_Btn.UseVisualStyleBackColor = true;
 			this.Set_mm_Btn.Click += new System.EventHandler(this.Set_mm_Btn_Click);
 			// 
-			// IgnoreGCodeErrors
-			// 
-			this.IgnoreGCodeErrors.AutoSize = true;
-			this.IgnoreGCodeErrors.Location = new System.Drawing.Point(258, 93);
-			this.IgnoreGCodeErrors.Margin = new System.Windows.Forms.Padding(4);
-			this.IgnoreGCodeErrors.Name = "IgnoreGCodeErrors";
-			this.IgnoreGCodeErrors.Size = new System.Drawing.Size(160, 21);
-			this.IgnoreGCodeErrors.TabIndex = 19;
-			this.IgnoreGCodeErrors.Text = "Ignore GCode errors";
-			this.IgnoreGCodeErrors.UseVisualStyleBackColor = true;
-			// 
-			// ZLevel
-			// 
-			this.ZLevel.Location = new System.Drawing.Point(66, 6);
-			this.ZLevel.Name = "ZLevel";
-			this.ZLevel.Size = new System.Drawing.Size(51, 22);
-			this.ZLevel.TabIndex = 1;
-			this.ZLevel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label27
-			// 
-			this.label27.AutoSize = true;
-			this.label27.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.label27.Location = new System.Drawing.Point(6, 8);
-			this.label27.Name = "label27";
-			this.label27.Size = new System.Drawing.Size(55, 17);
-			this.label27.TabIndex = 2;
-			this.label27.Text = "Z Level";
-			// 
 			// timer
 			// 
 			this.timer.Interval = 250;
 			this.timer.Tick += new System.EventHandler(this.timer_Tick);
 			// 
-			// MoveStep
+			// Default_Btn
 			// 
-			this.MoveStep.DecimalPlaces = 3;
-			this.MoveStep.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
-			this.MoveStep.Location = new System.Drawing.Point(6, 6);
-			this.MoveStep.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-			this.MoveStep.Name = "MoveStep";
-			this.MoveStep.Size = new System.Drawing.Size(76, 22);
-			this.MoveStep.TabIndex = 12;
-			this.MoveStep.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.MoveStep.ThousandsSeparator = true;
-			this.MoveStep.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+			this.Default_Btn.Location = new System.Drawing.Point(369, 49);
+			this.Default_Btn.Margin = new System.Windows.Forms.Padding(4);
+			this.Default_Btn.Name = "Default_Btn";
+			this.Default_Btn.Size = new System.Drawing.Size(100, 30);
+			this.Default_Btn.TabIndex = 54;
+			this.Default_Btn.Text = "Set Defaults";
+			this.Default_Btn.UseVisualStyleBackColor = true;
+			this.Default_Btn.Click += new System.EventHandler(this.Default_Btn_Click);
 			// 
-			// CurrentX
+			// Firmware_Btn
 			// 
-			this.CurrentX.Location = new System.Drawing.Point(531, 6);
-			this.CurrentX.Name = "CurrentX";
-			this.CurrentX.ReadOnly = true;
-			this.CurrentX.Size = new System.Drawing.Size(97, 22);
-			this.CurrentX.TabIndex = 13;
-			this.CurrentX.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// CurrentY
-			// 
-			this.CurrentY.Location = new System.Drawing.Point(531, 32);
-			this.CurrentY.Name = "CurrentY";
-			this.CurrentY.ReadOnly = true;
-			this.CurrentY.Size = new System.Drawing.Size(97, 22);
-			this.CurrentY.TabIndex = 14;
-			this.CurrentY.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// CurrentZ
-			// 
-			this.CurrentZ.Location = new System.Drawing.Point(531, 58);
-			this.CurrentZ.Name = "CurrentZ";
-			this.CurrentZ.ReadOnly = true;
-			this.CurrentZ.Size = new System.Drawing.Size(97, 22);
-			this.CurrentZ.TabIndex = 15;
-			this.CurrentZ.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label28
-			// 
-			this.label28.AutoSize = true;
-			this.label28.Location = new System.Drawing.Point(507, 9);
-			this.label28.Name = "label28";
-			this.label28.Size = new System.Drawing.Size(17, 17);
-			this.label28.TabIndex = 16;
-			this.label28.Text = "X";
-			this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// label29
-			// 
-			this.label29.AutoSize = true;
-			this.label29.Location = new System.Drawing.Point(507, 35);
-			this.label29.Name = "label29";
-			this.label29.Size = new System.Drawing.Size(17, 17);
-			this.label29.TabIndex = 17;
-			this.label29.Text = "Y";
-			this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// label30
-			// 
-			this.label30.AutoSize = true;
-			this.label30.Location = new System.Drawing.Point(507, 61);
-			this.label30.Name = "label30";
-			this.label30.Size = new System.Drawing.Size(17, 17);
-			this.label30.TabIndex = 18;
-			this.label30.Text = "Z";
-			this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// CurrentA
-			// 
-			this.CurrentA.Location = new System.Drawing.Point(531, 85);
-			this.CurrentA.Name = "CurrentA";
-			this.CurrentA.ReadOnly = true;
-			this.CurrentA.Size = new System.Drawing.Size(97, 22);
-			this.CurrentA.TabIndex = 19;
-			this.CurrentA.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label31
-			// 
-			this.label31.AutoSize = true;
-			this.label31.Location = new System.Drawing.Point(508, 88);
-			this.label31.Name = "label31";
-			this.label31.Size = new System.Drawing.Size(17, 17);
-			this.label31.TabIndex = 20;
-			this.label31.Text = "A";
-			this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// label32
-			// 
-			this.label32.AutoSize = true;
-			this.label32.Location = new System.Drawing.Point(505, 87);
-			this.label32.Name = "label32";
-			this.label32.Size = new System.Drawing.Size(17, 17);
-			this.label32.TabIndex = 28;
-			this.label32.Text = "A";
-			this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// CurrentA2
-			// 
-			this.CurrentA2.Location = new System.Drawing.Point(528, 84);
-			this.CurrentA2.Name = "CurrentA2";
-			this.CurrentA2.ReadOnly = true;
-			this.CurrentA2.Size = new System.Drawing.Size(97, 22);
-			this.CurrentA2.TabIndex = 27;
-			this.CurrentA2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// label33
-			// 
-			this.label33.AutoSize = true;
-			this.label33.Location = new System.Drawing.Point(504, 60);
-			this.label33.Name = "label33";
-			this.label33.Size = new System.Drawing.Size(17, 17);
-			this.label33.TabIndex = 26;
-			this.label33.Text = "Z";
-			this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// label34
-			// 
-			this.label34.AutoSize = true;
-			this.label34.Location = new System.Drawing.Point(504, 34);
-			this.label34.Name = "label34";
-			this.label34.Size = new System.Drawing.Size(17, 17);
-			this.label34.TabIndex = 25;
-			this.label34.Text = "Y";
-			this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// label35
-			// 
-			this.label35.AutoSize = true;
-			this.label35.Location = new System.Drawing.Point(504, 8);
-			this.label35.Name = "label35";
-			this.label35.Size = new System.Drawing.Size(17, 17);
-			this.label35.TabIndex = 24;
-			this.label35.Text = "X";
-			this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// CurrentZ2
-			// 
-			this.CurrentZ2.Location = new System.Drawing.Point(528, 57);
-			this.CurrentZ2.Name = "CurrentZ2";
-			this.CurrentZ2.ReadOnly = true;
-			this.CurrentZ2.Size = new System.Drawing.Size(97, 22);
-			this.CurrentZ2.TabIndex = 23;
-			this.CurrentZ2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// CurrentY2
-			// 
-			this.CurrentY2.Location = new System.Drawing.Point(528, 31);
-			this.CurrentY2.Name = "CurrentY2";
-			this.CurrentY2.ReadOnly = true;
-			this.CurrentY2.Size = new System.Drawing.Size(97, 22);
-			this.CurrentY2.TabIndex = 22;
-			this.CurrentY2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// CurrentX2
-			// 
-			this.CurrentX2.Location = new System.Drawing.Point(528, 5);
-			this.CurrentX2.Name = "CurrentX2";
-			this.CurrentX2.ReadOnly = true;
-			this.CurrentX2.Size = new System.Drawing.Size(97, 22);
-			this.CurrentX2.TabIndex = 21;
-			this.CurrentX2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.Firmware_Btn.Location = new System.Drawing.Point(369, 84);
+			this.Firmware_Btn.Margin = new System.Windows.Forms.Padding(4);
+			this.Firmware_Btn.Name = "Firmware_Btn";
+			this.Firmware_Btn.Size = new System.Drawing.Size(100, 30);
+			this.Firmware_Btn.TabIndex = 55;
+			this.Firmware_Btn.Text = "Firmware ...";
+			this.Firmware_Btn.UseVisualStyleBackColor = true;
+			this.Firmware_Btn.Click += new System.EventHandler(this.Firmware_Btn_Click);
 			// 
 			// Log
 			// 
@@ -1546,6 +1573,8 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1182, 600);
+			this.Controls.Add(this.Firmware_Btn);
+			this.Controls.Add(this.Default_Btn);
 			this.Controls.Add(this.Set_mm_Btn);
 			this.Controls.Add(this.TabLogGraph);
 			this.Controls.Add(this.UseResponseItems);
@@ -1574,15 +1603,15 @@
 			this.PageAxises.ResumeLayout(false);
 			this.Page1.ResumeLayout(false);
 			this.Page1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.MoveStep)).EndInit();
 			this.Page2.ResumeLayout(false);
 			this.Page2.PerformLayout();
 			this.TabLogGraph.ResumeLayout(false);
 			this.PageLog.ResumeLayout(false);
 			this.PageGraph.ResumeLayout(false);
 			this.PageGraph.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.GPlotPicture)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.ZLevel)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.MoveStep)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.GPlotPicture)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -1598,7 +1627,7 @@
 		private System.Windows.Forms.Button StopBtn;
 		private System.Windows.Forms.TextBox CommandLine;
 		private System.Windows.Forms.Button PrintBtn;
-		private System.Windows.Forms.ComboBox serialPortList;
+		private System.Windows.Forms.ComboBox PortsList;
 		private System.Windows.Forms.Button ReloadBtn;
 		private System.Windows.Forms.Label RowsInFileLbl;
 		private System.Windows.Forms.Label SentRowsLbl;
@@ -1690,7 +1719,7 @@
 		private AxisControl AxisX;
 		private System.Windows.Forms.ColumnHeader LogColumn1;
 		private System.ComponentModel.BackgroundWorker backgroundWorker;
-		private System.Windows.Forms.ComboBox comboBox1;
+		private System.Windows.Forms.ComboBox PortSpeed;
 		private System.Windows.Forms.TabControl TabLogGraph;
 		private System.Windows.Forms.TabPage PageLog;
 		private System.Windows.Forms.TabPage PageGraph;
@@ -1717,5 +1746,7 @@
 		private System.Windows.Forms.TextBox CurrentZ2;
 		private System.Windows.Forms.TextBox CurrentY2;
 		private System.Windows.Forms.TextBox CurrentX2;
+		private System.Windows.Forms.Button Default_Btn;
+		private System.Windows.Forms.Button Firmware_Btn;
 	}
 }
