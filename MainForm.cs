@@ -45,6 +45,9 @@ namespace CNCGUI
 		private bool m_auto_log = true;
 		private bool m_log_invoke = false;
 
+		private Color GCODE_CURRENT = Color.FromArgb(0, 192, 0);
+		private Color GCODE_BREAKPOINT = Color.FromArgb(255, 192, 192);
+
 		public MainForm()
 		{
 			InitializeComponent();
@@ -54,7 +57,7 @@ namespace CNCGUI
 			currentDomain.UnhandledException += new UnhandledExceptionEventHandler(Application_UnhandledException);
 
 			disableControlsForPrinting();
-			StopPrintBtn.Enabled = false;
+			Stop_Btn.Enabled = false;
 		}
 
 		#region Exception handlers 
@@ -89,7 +92,8 @@ namespace CNCGUI
 
 		private void MainForm_ResizeEnd(object sender, EventArgs e)
 		{
-			LogColumn1.Width = Log.Width - 20;
+			LogColumn1.Width = Log.Width - SystemInformation.VerticalScrollBarWidth - Log.Margin.Left;
+			columnGCode.Width = GCodes.Width - columnBP.Width - 2 * SystemInformation.BorderSize.Width - SystemInformation.VerticalScrollBarWidth - GCodes.Margin.Left;
 			GPlotPicture.Scale(new SizeF((float)(GPlotPicture.Width / PLOT_X), (float)(GPlotPicture.Height / PLOT_Y)));
 			GPlotPicture.Refresh();
 		}
@@ -108,8 +112,8 @@ namespace CNCGUI
 			}
 		}
 
-		#region BrowseBtn_Click 
-		private void BrowseBtn_Click(object sender, EventArgs e)
+		#region Load_Btn_Click 
+		private void Load_Btn_Click(object sender, EventArgs e)
 		{
 			openFileDialog.Filter = "G-code Files|*.cnc;*.nc;*.tap;*.txt;*.gcode|All files|*.*";
 			openFileDialog.FileName = "";
@@ -121,14 +125,44 @@ namespace CNCGUI
 				{
 					using (StreamReader r = new StreamReader(FileName.Text))
 					{
+						GCodes.Items.Clear();
+						GCodes.CurrentLine = 0;
+						GCodes.StopLine = -1;
+						Debug_Btn.Enabled = false;
 						string line = String.Empty;
-						int rowCounter = 0;
+
 						while ((line = r.ReadLine()) != null)
 						{
-							if (line.Trim() != "")
-								rowCounter++;
+							line = line.Trim();
+							int i, j;
+							while ((line.Length > 0) && (i = line.IndexOf('(')) >= 0)
+							{
+								j = line.IndexOf(')', i);
+								line = string.Concat(
+									(i > 0) ? line.Substring(0, i) : string.Empty,
+									(j >= 0 && j + 1 < line.Length) ? line.Substring(j + 1) : string.Empty
+									).Trim();
+							}
+							if (line.Length > 0)
+							{
+								GCodeListViewItem gcode = new GCodeListViewItem();
+								gcode.SubItems.Add(new ListViewItem.ListViewSubItem(gcode, line));
+								GCodes.Items.Add(gcode);
+								if (gcode.Index == GCodes.CurrentLine)
+								{
+									GCodes.SavedLine = GCodes.CurrentLine;
+									gcode.BackColor = GCODE_CURRENT;
+								}
+							}
 						}
-						RowsInFileLbl.Text = "Rows: " + rowCounter.ToString();
+						if (GCodes.Items.Count > 0)
+						{
+							TabLogGraph.SelectedTab = PageGCode;
+							Debug_Btn.Enabled = true;
+						}
+
+						RowsInFileLbl.Text = "Rows: " + GCodes.Items.Count.ToString();
+						r.Close();
 					}
 				}
 
@@ -804,54 +838,54 @@ namespace CNCGUI
 			if (responses != null)
 				responses.Clear();
 
-			if (serialPort.IsOpen)
+			if (!serialPort.IsOpen)
+				return E_RESPONSE.E_NOT_OPEN;
+
+			m_auto_log = false;
+
+			LogAppend(string.Concat("Cmd:", cmd), Color.LightSkyBlue);
+
+			string cmdx = string.Concat(cmd, "\r");
+			char[] buff = new char[cmdx.Length];
+			buff = cmdx.ToCharArray();
+
+			Responses.Clear();
+			serialPort.Write(buff, 0, buff.Length);
+
+			for (int timeout = 0; timeout < 1000; timeout++)
 			{
-				m_auto_log = false;
-
-				LogAppend(string.Concat("Cmd:", cmd), Color.LightSkyBlue);
-
-				string cmdx = string.Concat(cmd, "\r");
-				char[] buff = new char[cmdx.Length];
-				buff = cmdx.ToCharArray();
-
-				Responses.Clear();
-				serialPort.Write(buff, 0, buff.Length);
-
-				for (int timeout = 0; timeout < 1000; timeout++)
+				while (Responses.Count > 0)
 				{
-					while (Responses.Count > 0)
+					string line = Responses.Dequeue();
+					if (!string.IsNullOrEmpty(line))
 					{
-						string line = Responses.Dequeue();
-						if (!string.IsNullOrEmpty(line))
+						if (line == CMD_RESPONSE_OK_mm || line == CMD_RESPONSE_OK_inch)
 						{
-							if (line == CMD_RESPONSE_OK_mm || line == CMD_RESPONSE_OK_inch)
-							{
-								StatusText(string.Format("Command:{0} OK", cmd));
-								LogGPlotDisplay();
-								m_auto_log = true;
-								return E_RESPONSE.E_OK;
-							}
-							if (line.StartsWith(CMD_RESPONSE_ERROR_mm, StringComparison.InvariantCultureIgnoreCase)
-							|| line.StartsWith(CMD_RESPONSE_ERROR_inch, StringComparison.InvariantCultureIgnoreCase)
-								)
-							{
-								StatusText(string.Format("Command:{0} ERROR", cmd));
-								LogGPlotDisplay();
-								m_auto_log = true;
-								return E_RESPONSE.E_ERROR;
-							}
-							if (responses != null)
-								responses.Add(line);
+							StatusText(string.Format("Command:{0} OK", cmd));
+							LogGPlotDisplay();
+							m_auto_log = true;
+							return E_RESPONSE.E_OK;
 						}
+						if (line.StartsWith(CMD_RESPONSE_ERROR_mm, StringComparison.InvariantCultureIgnoreCase)
+						|| line.StartsWith(CMD_RESPONSE_ERROR_inch, StringComparison.InvariantCultureIgnoreCase)
+							)
+						{
+							StatusText(string.Format("Command:{0} ERROR", cmd));
+							LogGPlotDisplay();
+							m_auto_log = true;
+							return E_RESPONSE.E_ERROR;
+						}
+						if (responses != null)
+							responses.Add(line);
 					}
-					Thread.Sleep(10);
 				}
-				StatusText(string.Format("Command:{0} TIMEOUT", cmd));
-				LogGPlotDisplay();
-				m_auto_log = true;
-				return E_RESPONSE.E_TIMEOUT;
+				Thread.Sleep(10);
 			}
-			return E_RESPONSE.E_NOT_OPEN;
+			StatusText(string.Format("Command:{0} TIMEOUT", cmd));
+			LogGPlotDisplay();
+
+			m_auto_log = true;
+			return E_RESPONSE.E_TIMEOUT;
 		}
 		#endregion
 
@@ -923,21 +957,35 @@ namespace CNCGUI
 		#region enableControlsForPrinting 
 		private void enableControlsForPrinting()
 		{
-			StopPrintBtn.Enabled = false;
-			PrintBtn.Enabled = true;
-			BrowseBtn.Enabled = true;
+			Stop_Btn.Enabled = false;
+			Send_Btn.Enabled = true;
+			Load_Btn.Enabled = true;
 			overrideSpeedChkbox.Enabled = true;
 			speedOverrideNumber.Enabled = true;
 			FileName.Enabled = true;
+
+			mi_Run.Enabled = true;
+			mi_Step.Enabled = true;
+			mi_Stop.Enabled = false;
+			mi_ToggleBP.Enabled = true;
+			mi_DeleteAllBP.Enabled = true;
+
 		}
+
 		private void disableControlsForPrinting()
 		{
-			PrintBtn.Enabled = false;
-			BrowseBtn.Enabled = false;
+			Send_Btn.Enabled = false;
+			Load_Btn.Enabled = false;
 			overrideSpeedChkbox.Enabled = false;
 			speedOverrideNumber.Enabled = false;
-			StopPrintBtn.Enabled = true;
+			Stop_Btn.Enabled = true;
 			FileName.Enabled = false;
+
+			mi_Run.Enabled = false;
+			mi_Step.Enabled = false;
+			mi_Stop.Enabled = true;
+			mi_ToggleBP.Enabled = false;
+			mi_DeleteAllBP.Enabled = false;
 		}
 		#endregion
 
@@ -1230,7 +1278,10 @@ namespace CNCGUI
 					}
 				}
 
-				if (!point.Invalid && !point.IsEmpty && GPlotQueue.Count < GPLOT_QUEUE_SIZE)
+				if (!point.Invalid &&
+					!point.IsEmpty &&
+					GPlotQueue.Count < GPLOT_QUEUE_SIZE
+					)
 					GPlotQueue.Enqueue(point);
 			}
 		}
@@ -1268,13 +1319,8 @@ namespace CNCGUI
 			}
 			if (m_auto_log)
 			{
-				if (LogQueue.Count > 50 || GPlotQueue.Count > 50)
-					LogGPlotDisplay();
-				else
-				{
-					timer.Stop();
-					timer.Start();
-				}
+				LogGPlotDisplay();
+				timer.Start();
 			}
 		}
 
@@ -1296,10 +1342,11 @@ namespace CNCGUI
 				return;
 			}
 
-			m_log_invoke = false;
-
 			if (LogQueue.Count == 0 && GPlotQueue.Count == 0)
+			{
+				m_log_invoke = false;
 				return;
+			}
 
 			this.SuspendLayout();
 			while (LogQueue.Count > 0)
@@ -1341,6 +1388,7 @@ namespace CNCGUI
 			CurrentA.Text = CurrentA2.Text = GPlotCurrent.A.HasValue ? GPlotCurrent.A.Value.ToString(Culture) : "-";
 
 			this.ResumeLayout(false);
+			m_log_invoke = false;
 		}
 
 		private int NormalizeX(float value)
@@ -1362,62 +1410,36 @@ namespace CNCGUI
 		}
 		#endregion
 
-		#region StopPrintBtn_Click / PrintBtn_Click 
-		private void StopPrintBtn_Click(object sender, EventArgs e)
+		#region Stop_Btn_Click / Start_Btn_Click 
+
+		private void Stop_Btn_Click(object sender, EventArgs e)
 		{
 			backgroundWorker.CancelAsync();
 		}
 
-		private class WorkerState
-		{
-			public int CurrentRow;
-		}
-
-		private void PrintBtn_Click(object sender, EventArgs e)
+		private void StartGCode(bool step)
 		{
 			try
 			{
-				if (serialPort.IsOpen)
+				if (!serialPort.IsOpen)
 				{
-
-					if (File.Exists(FileName.Text))
-					{
-						using (StreamReader r = new StreamReader(FileName.Text))
-						{
-							List<string> gcodes = new List<string>();
-
-							string gcode;
-							int i, j;
-							while ((gcode = r.ReadLine()) != null)
-							{
-								gcode = gcode.Trim();
-								while ((gcode.Length > 0) && (i = gcode.IndexOf('(')) >= 0)
-								{
-									j = gcode.IndexOf(')', i);
-									gcode = string.Concat(
-										(i > 0) ? gcode.Substring(0, i) : string.Empty,
-										(j >= 0 && j + 1 < gcode.Length) ? gcode.Substring(j + 1) : string.Empty
-										).Trim();
-								}
-								if (gcode.Length > 0)
-									gcodes.Add(gcode);
-							}
-							RowsInFileLbl.Text = "Rows: " + gcodes.Count.ToString();
-							if (gcodes.Count > 0)
-							{
-								disableControlsForPrinting();
-								SentRowsLbl.Text = "Sent rows: 0";
-								backgroundWorker.RunWorkerAsync(gcodes);
-							}
-						}
-					}
-					else
-						MessageBox.Show("File not exists.");
+					enableControlsForPrinting();
+					MessageBox.Show("Port not open.");
+				}
+				else if (GCodes.Items.Count == 0)
+				{
+					enableControlsForPrinting();
+					MessageBox.Show("GCode list empty.");
 				}
 				else
 				{
 					disableControlsForPrinting();
-					MessageBox.Show("Port not open.");
+					SentRowsLbl.Text = "Sent rows: 0";
+
+					List<GCodeListViewItem> gcodes = new List<GCodeListViewItem>(GCodes.Items.Count);
+					foreach (GCodeListViewItem gcode in GCodes.Items)
+						gcodes.Add(gcode);
+					backgroundWorker.RunWorkerAsync(new object[] { step, gcodes });
 				}
 			}
 			catch (Exception ex)
@@ -1426,25 +1448,43 @@ namespace CNCGUI
 			}
 		}
 
+		private void Send_Btn_Click(object sender, EventArgs e)
+		{
+			StartGCode(false);
+		}
+
+		private bool worker_progress = true;
+
 		private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
 		{
-			BackgroundWorker worker = (BackgroundWorker)sender;
-			List<string> gcodes = (List<string>)e.Argument;
 			List<string> responses = new List<string>();
-			WorkerState state = new WorkerState();
-			int currentRow = 0;
 
+			object[] param = (object[])e.Argument;
+			bool step_mode = (bool)param[0];
+			List<GCodeListViewItem> gcodes = (List<GCodeListViewItem>)param[1];
+
+			BackgroundWorker worker = (BackgroundWorker)sender;
 			e.Result = E_RESPONSE.E_OK;
 
-			while(currentRow < gcodes.Count)
+			worker_progress = true;
+			bool check_bp = false;
+
+			while (GCodes.CurrentLine < gcodes.Count)
 			{
 				if (worker.CancellationPending)
 				{
 					e.Cancel = true;
 					break;
 				}
+				if (GCodes.CurrentLine == GCodes.StopLine)
+					break;
 
-				string gcode = gcodes[currentRow];
+				GCodeListViewItem gcodeItem = gcodes[GCodes.CurrentLine];
+				string gcode = gcodeItem.SubItems[1].Text;
+				if (check_bp && gcodeItem.Breakpoint)
+					break;
+				check_bp = true;
+
 				int idx;
 				// Check if we need to override and F command. This is a little rude, we just replaces first F in line...
 				if (overrideSpeedChkbox.Checked && (idx = gcode.ToLower().IndexOf("f", StringComparison.InvariantCultureIgnoreCase)) >= 0)
@@ -1469,22 +1509,55 @@ namespace CNCGUI
 					}
 				}
 
-				currentRow++;
-				if (currentRow % 10 == 0)
+				GCodes.CurrentLine++;
+
+				if (step_mode)
 				{
-					state.CurrentRow = currentRow;
-					worker.ReportProgress(0, state);
+					break;
+				}
+				else if (worker_progress)
+				{
+					worker_progress = false;
+					worker.ReportProgress(0, false);
 				}
 			}
-			state.CurrentRow = currentRow;
-			worker.ReportProgress(0, state);
+			GCodes.StopLine = -1;
+			worker.ReportProgress(0, true);
 		}
 
 		private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
 		{
-			WorkerState state = (WorkerState)e.UserState;
-			SentRowsLbl.Text = "Sent rows: " + state.CurrentRow.ToString();
-			// LogGPlotDisplay();
+			// WorkerState state = (WorkerState)e.UserState;
+			bool complete = (bool)e.UserState;
+
+			if (complete)
+			{
+				SentRowsLbl.Text = "Sent rows: " + GCodes.CurrentLine.ToString();
+			}
+			else
+			{
+				if (GCodes.CurrentLine % 10 == 0)
+					SentRowsLbl.Text = "Sent rows: " + GCodes.CurrentLine.ToString();
+			}
+
+			SetGCodeRowCurrent();
+			worker_progress = true;
+		}
+
+		private void SetGCodeRowCurrent()
+		{
+			int current = GCodes.CurrentLine;
+			if (current != GCodes.SavedLine)
+			{
+				SetGCodeRowAttributes(GCodes.SavedLine);
+				SetGCodeRowAttributes(current);
+				if (current < GCodes.Items.Count)
+				{
+					GCodes.Items[current].Selected = true;
+					GCodes.EnsureVisible(current);
+					GCodes.SavedLine = current;
+				}
+			}
 		}
 
 		private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -1536,5 +1609,150 @@ namespace CNCGUI
 			*/
 		}
 		#endregion
+
+		/*
+		private void GCodes_KeyDown(object sender, KeyEventArgs e)
+		{
+			bool handled = false;
+
+			if (e.Shift && e.Control && !e.Alt)
+			{
+				if (e.KeyCode == Keys.F10)
+				{
+					GCodeSetCurrent();
+					handled = true;
+				}
+			}
+
+			if (!e.Shift && e.Control && !e.Alt)
+			{
+				if (e.KeyCode == Keys.F10)
+				{
+					GCodeRunStep();
+					handled = true;
+				}
+			}
+
+			if (!e.Shift && !e.Control && !e.Alt)
+			{
+				if (e.KeyCode == Keys.F9)
+				{
+					GCodeToggleBreakPoint();
+					handled = true;
+				}
+				if (e.KeyCode == Keys.F10)
+				{
+					GCodeRun();
+					handled = true;
+				}
+			}
+			if (handled)
+			{
+				e.Handled = true;
+				e.SuppressKeyPress = true;
+			}
+		}
+		private void GCodeMenu_Click(object sender, EventArgs e)
+		{
+
+		}
+		*/
+
+		private void mi_Run_Click(object sender, EventArgs e)
+		{
+			Send_Btn_Click(sender, e);
+		}
+
+		private void mi_Step_Click(object sender, EventArgs e)
+		{
+			StartGCode(true);
+		}
+
+		private void TabLogGraph_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			Debug_Btn.Visible = (TabLogGraph.SelectedIndex == 2);
+		}
+
+		private void Debug_Btn_Click(object sender, EventArgs e)
+		{
+			GCodeMenu.Show(Debug_Btn, new Point(0, Debug_Btn.Height));
+		}
+
+		private void SetGCodeRowAttributes(int index)
+		{
+			if (index < GCodes.Items.Count)
+			{
+				GCodeListViewItem gcode = GCodes.Items[index] as GCodeListViewItem;
+				if (gcode != null)
+					SetGCodeRowAttributes(gcode);
+			}
+		}
+
+		private void SetGCodeRowAttributes(GCodeListViewItem gcode)
+		{
+			SetGCodeRowBP(gcode);
+			if (gcode.Index == GCodes.CurrentLine)
+				gcode.BackColor = GCODE_CURRENT;
+		}
+
+		private void SetGCodeRowBP(GCodeListViewItem gcode)
+		{
+			if (gcode.Breakpoint)
+			{
+				gcode.ImageIndex = 1;
+				gcode.BackColor = GCODE_BREAKPOINT;
+			}
+			else
+			{
+				gcode.ImageIndex = -1;
+				gcode.BackColor = Color.FromKnownColor(KnownColor.Window);
+			}
+		}
+
+		private void mi_ToggleBP_Click(object sender, EventArgs e)
+		{
+			if (GCodes.SelectedItems != null && GCodes.SelectedItems.Count >= 1)
+			{
+				GCodeListViewItem gcode = GCodes.SelectedItems[0] as GCodeListViewItem;
+				if (gcode != null)
+				{
+					gcode.Breakpoint = !gcode.Breakpoint;
+					SetGCodeRowAttributes(gcode);
+				}
+			}
+		}
+
+		private void mi_DeleteAllBP_Click(object sender, EventArgs e)
+		{
+			foreach (GCodeListViewItem gcode in GCodes.Items)
+				if (gcode != null && gcode.Breakpoint)
+				{
+					gcode.Breakpoint = false;
+					SetGCodeRowAttributes(gcode);
+				}
+		}
+
+		private void mi_Stop_Click(object sender, EventArgs e)
+		{
+			Stop_Btn_Click(sender, e);
+		}
+
+		private void mi_NextCommand_Click(object sender, EventArgs e)
+		{
+			if (GCodes.SelectedItems != null)
+			{
+				GCodes.CurrentLine = GCodes.SelectedItems[0].Index;
+				SetGCodeRowCurrent();
+			}
+		}
+
+		private void mi_RunToCursor_Click(object sender, EventArgs e)
+		{
+			if (GCodes.SelectedItems != null)
+			{
+				GCodes.StopLine = GCodes.SelectedItems[0].Index;
+				StartGCode(false);
+			}
+		}
 	}
 }

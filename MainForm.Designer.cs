@@ -32,16 +32,16 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.serialPort = new System.IO.Ports.SerialPort(this.components);
 			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-			this.BrowseBtn = new System.Windows.Forms.Button();
+			this.Load_Btn = new System.Windows.Forms.Button();
 			this.StartBtn = new System.Windows.Forms.Button();
 			this.FileName = new System.Windows.Forms.TextBox();
 			this.StopBtn = new System.Windows.Forms.Button();
 			this.CommandLine = new System.Windows.Forms.TextBox();
-			this.PrintBtn = new System.Windows.Forms.Button();
+			this.Send_Btn = new System.Windows.Forms.Button();
 			this.PortsList = new System.Windows.Forms.ComboBox();
 			this.RowsInFileLbl = new System.Windows.Forms.Label();
 			this.SentRowsLbl = new System.Windows.Forms.Label();
-			this.StopPrintBtn = new System.Windows.Forms.Button();
+			this.Stop_Btn = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.PortSpeed = new System.Windows.Forms.ComboBox();
 			this.label2 = new System.Windows.Forms.Label();
@@ -55,24 +55,42 @@
 			this.ControlTabs = new System.Windows.Forms.TabControl();
 			this.PageSettings = new System.Windows.Forms.TabPage();
 			this.label26 = new System.Windows.Forms.Label();
+			this.BAUD = new CNCGUI.ComboBoxEnum();
 			this.label25 = new System.Windows.Forms.Label();
 			this.label24 = new System.Windows.Forms.Label();
+			this.GDI = new CNCGUI.ComboBoxEnum();
 			this.label23 = new System.Windows.Forms.Label();
+			this.GPA = new CNCGUI.ComboBoxEnum();
 			this.label22 = new System.Windows.Forms.Label();
+			this.GCO = new CNCGUI.ComboBoxEnum();
 			this.label21 = new System.Windows.Forms.Label();
+			this.GUN = new CNCGUI.ComboBoxEnum();
 			this.label20 = new System.Windows.Forms.Label();
+			this.GPL = new CNCGUI.ComboBoxEnum();
 			this.label19 = new System.Windows.Forms.Label();
 			this.label18 = new System.Windows.Forms.Label();
+			this.EE = new CNCGUI.ComboBoxEnum();
+			this.EC = new CNCGUI.ComboBoxEnum();
 			this.label17 = new System.Windows.Forms.Label();
+			this.IC = new CNCGUI.ComboBoxEnum();
 			this.label16 = new System.Windows.Forms.Label();
 			this.SI = new System.Windows.Forms.TextBox();
 			this.label15 = new System.Windows.Forms.Label();
+			this.EX = new CNCGUI.ComboBoxEnum();
 			this.label14 = new System.Windows.Forms.Label();
+			this.SV = new CNCGUI.ComboBoxEnum();
 			this.label13 = new System.Windows.Forms.Label();
+			this.QV = new CNCGUI.ComboBoxEnum();
 			this.label12 = new System.Windows.Forms.Label();
+			this.TV = new CNCGUI.ComboBoxEnum();
 			this.label11 = new System.Windows.Forms.Label();
+			this.JV = new CNCGUI.ComboBoxEnum();
 			this.label10 = new System.Windows.Forms.Label();
+			this.EJ = new CNCGUI.ComboBoxEnum();
 			this.label9 = new System.Windows.Forms.Label();
+			this.ST = new CNCGUI.ComboBoxEnum();
+			this.CT = new CNCGUI.ValueUnitControl();
+			this.JA = new CNCGUI.ValueUnitControl();
 			this.label8 = new System.Windows.Forms.Label();
 			this.label7 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
@@ -84,7 +102,15 @@
 			this.InfoFwBuild = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.PageMotors = new System.Windows.Forms.TabPage();
+			this.Motor4 = new CNCGUI.MotorControl();
+			this.Motor3 = new CNCGUI.MotorControl();
+			this.Motor2 = new CNCGUI.MotorControl();
+			this.Motor1 = new CNCGUI.MotorControl();
 			this.PageAxises = new System.Windows.Forms.TabPage();
+			this.AxisA = new CNCGUI.AxisControl();
+			this.AxisZ = new CNCGUI.AxisControl();
+			this.AxisY = new CNCGUI.AxisControl();
+			this.AxisX = new CNCGUI.AxisControl();
 			this.Page1 = new System.Windows.Forms.TabPage();
 			this.label31 = new System.Windows.Forms.Label();
 			this.CurrentA = new System.Windows.Forms.TextBox();
@@ -123,42 +149,32 @@
 			this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
 			this.TabLogGraph = new System.Windows.Forms.TabControl();
 			this.PageLog = new System.Windows.Forms.TabPage();
+			this.Log = new CNCGUI.GCodeListView();
+			this.LogColumn1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.PageGraph = new System.Windows.Forms.TabPage();
 			this.label27 = new System.Windows.Forms.Label();
 			this.ZLevel = new System.Windows.Forms.NumericUpDown();
 			this.GPlotPicture = new System.Windows.Forms.PictureBox();
+			this.PageGCode = new System.Windows.Forms.TabPage();
+			this.GCodes = new CNCGUI.GCodeListView();
+			this.columnBP = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnGCode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.GCodeMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.mi_Run = new System.Windows.Forms.ToolStripMenuItem();
+			this.mi_Step = new System.Windows.Forms.ToolStripMenuItem();
+			this.mi_Stop = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+			this.mi_ToggleBP = new System.Windows.Forms.ToolStripMenuItem();
+			this.mi_DeleteAllBP = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+			this.mi_NextCommand = new System.Windows.Forms.ToolStripMenuItem();
+			this.GCodeImages = new System.Windows.Forms.ImageList(this.components);
 			this.Set_mm_Btn = new System.Windows.Forms.Button();
 			this.timer = new System.Windows.Forms.Timer(this.components);
 			this.Default_Btn = new System.Windows.Forms.Button();
 			this.Firmware_Btn = new System.Windows.Forms.Button();
-			this.Log = new CNCGUI.ListViewEx();
-			this.LogColumn1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.BAUD = new CNCGUI.ComboBoxEnum();
-			this.GDI = new CNCGUI.ComboBoxEnum();
-			this.GPA = new CNCGUI.ComboBoxEnum();
-			this.GCO = new CNCGUI.ComboBoxEnum();
-			this.GUN = new CNCGUI.ComboBoxEnum();
-			this.GPL = new CNCGUI.ComboBoxEnum();
-			this.EE = new CNCGUI.ComboBoxEnum();
-			this.EC = new CNCGUI.ComboBoxEnum();
-			this.IC = new CNCGUI.ComboBoxEnum();
-			this.EX = new CNCGUI.ComboBoxEnum();
-			this.SV = new CNCGUI.ComboBoxEnum();
-			this.QV = new CNCGUI.ComboBoxEnum();
-			this.TV = new CNCGUI.ComboBoxEnum();
-			this.JV = new CNCGUI.ComboBoxEnum();
-			this.EJ = new CNCGUI.ComboBoxEnum();
-			this.ST = new CNCGUI.ComboBoxEnum();
-			this.CT = new CNCGUI.ValueUnitControl();
-			this.JA = new CNCGUI.ValueUnitControl();
-			this.Motor4 = new CNCGUI.MotorControl();
-			this.Motor3 = new CNCGUI.MotorControl();
-			this.Motor2 = new CNCGUI.MotorControl();
-			this.Motor1 = new CNCGUI.MotorControl();
-			this.AxisA = new CNCGUI.AxisControl();
-			this.AxisZ = new CNCGUI.AxisControl();
-			this.AxisY = new CNCGUI.AxisControl();
-			this.AxisX = new CNCGUI.AxisControl();
+			this.Debug_Btn = new System.Windows.Forms.Button();
+			this.mi_RunToCursor = new System.Windows.Forms.ToolStripMenuItem();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.speedOverrideNumber)).BeginInit();
 			this.statusStrip1.SuspendLayout();
@@ -174,22 +190,24 @@
 			this.PageGraph.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.ZLevel)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.GPlotPicture)).BeginInit();
+			this.PageGCode.SuspendLayout();
+			this.GCodeMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// serialPort
 			// 
 			this.serialPort.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.CNC_DataReceived);
 			// 
-			// BrowseBtn
+			// Load_Btn
 			// 
-			this.BrowseBtn.Location = new System.Drawing.Point(307, 24);
-			this.BrowseBtn.Margin = new System.Windows.Forms.Padding(4);
-			this.BrowseBtn.Name = "BrowseBtn";
-			this.BrowseBtn.Size = new System.Drawing.Size(100, 30);
-			this.BrowseBtn.TabIndex = 0;
-			this.BrowseBtn.Text = "Browse";
-			this.BrowseBtn.UseVisualStyleBackColor = true;
-			this.BrowseBtn.Click += new System.EventHandler(this.BrowseBtn_Click);
+			this.Load_Btn.Location = new System.Drawing.Point(307, 24);
+			this.Load_Btn.Margin = new System.Windows.Forms.Padding(4);
+			this.Load_Btn.Name = "Load_Btn";
+			this.Load_Btn.Size = new System.Drawing.Size(100, 30);
+			this.Load_Btn.TabIndex = 0;
+			this.Load_Btn.Text = "Load ...";
+			this.Load_Btn.UseVisualStyleBackColor = true;
+			this.Load_Btn.Click += new System.EventHandler(this.Load_Btn_Click);
 			// 
 			// StartBtn
 			// 
@@ -233,16 +251,16 @@
 			this.CommandLine.TabIndex = 3;
 			this.CommandLine.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CommandLine_KeyPress);
 			// 
-			// PrintBtn
+			// Send_Btn
 			// 
-			this.PrintBtn.Location = new System.Drawing.Point(7, 58);
-			this.PrintBtn.Margin = new System.Windows.Forms.Padding(4);
-			this.PrintBtn.Name = "PrintBtn";
-			this.PrintBtn.Size = new System.Drawing.Size(69, 30);
-			this.PrintBtn.TabIndex = 8;
-			this.PrintBtn.Text = "Send";
-			this.PrintBtn.UseVisualStyleBackColor = true;
-			this.PrintBtn.Click += new System.EventHandler(this.PrintBtn_Click);
+			this.Send_Btn.Location = new System.Drawing.Point(7, 58);
+			this.Send_Btn.Margin = new System.Windows.Forms.Padding(4);
+			this.Send_Btn.Name = "Send_Btn";
+			this.Send_Btn.Size = new System.Drawing.Size(69, 30);
+			this.Send_Btn.TabIndex = 8;
+			this.Send_Btn.Text = "Send";
+			this.Send_Btn.UseVisualStyleBackColor = true;
+			this.Send_Btn.Click += new System.EventHandler(this.Send_Btn_Click);
 			// 
 			// PortsList
 			// 
@@ -274,17 +292,17 @@
 			this.SentRowsLbl.TabIndex = 13;
 			this.SentRowsLbl.Text = "Sent rows: 0";
 			// 
-			// StopPrintBtn
+			// Stop_Btn
 			// 
-			this.StopPrintBtn.Enabled = false;
-			this.StopPrintBtn.Location = new System.Drawing.Point(84, 58);
-			this.StopPrintBtn.Margin = new System.Windows.Forms.Padding(4);
-			this.StopPrintBtn.Name = "StopPrintBtn";
-			this.StopPrintBtn.Size = new System.Drawing.Size(69, 30);
-			this.StopPrintBtn.TabIndex = 14;
-			this.StopPrintBtn.Text = "Stop";
-			this.StopPrintBtn.UseVisualStyleBackColor = true;
-			this.StopPrintBtn.Click += new System.EventHandler(this.StopPrintBtn_Click);
+			this.Stop_Btn.Enabled = false;
+			this.Stop_Btn.Location = new System.Drawing.Point(84, 58);
+			this.Stop_Btn.Margin = new System.Windows.Forms.Padding(4);
+			this.Stop_Btn.Name = "Stop_Btn";
+			this.Stop_Btn.Size = new System.Drawing.Size(69, 30);
+			this.Stop_Btn.TabIndex = 14;
+			this.Stop_Btn.Text = "Stop";
+			this.Stop_Btn.UseVisualStyleBackColor = true;
+			this.Stop_Btn.Click += new System.EventHandler(this.Stop_Btn_Click);
 			// 
 			// groupBox1
 			// 
@@ -496,6 +514,17 @@
 			this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.toolTip.SetToolTip(this.label26, "USB Baud Rate");
 			// 
+			// BAUD
+			// 
+			this.BAUD.FormattingEnabled = true;
+			this.BAUD.Location = new System.Drawing.Point(263, 268);
+			this.BAUD.Name = "BAUD";
+			this.BAUD.Size = new System.Drawing.Size(121, 24);
+			this.BAUD.TabIndex = 48;
+			this.BAUD.Text = "";
+			this.toolTip.SetToolTip(this.BAUD, "USB Baud Rate");
+			this.BAUD.ValueChanged += new System.EventHandler(this.Setting_Changed);
+			// 
 			// label25
 			// 
 			this.label25.Location = new System.Drawing.Point(350, 238);
@@ -515,6 +544,17 @@
 			this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.toolTip.SetToolTip(this.label24, "Default Gcode Distance Mode");
 			// 
+			// GDI
+			// 
+			this.GDI.FormattingEnabled = true;
+			this.GDI.Location = new System.Drawing.Point(493, 268);
+			this.GDI.Name = "GDI";
+			this.GDI.Size = new System.Drawing.Size(121, 24);
+			this.GDI.TabIndex = 45;
+			this.GDI.Text = "";
+			this.toolTip.SetToolTip(this.GDI, "Default Gcode Distance Mode");
+			this.GDI.ValueChanged += new System.EventHandler(this.Setting_Changed);
+			// 
 			// label23
 			// 
 			this.label23.Location = new System.Drawing.Point(447, 238);
@@ -524,6 +564,17 @@
 			this.label23.Text = "GPA";
 			this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.toolTip.SetToolTip(this.label23, "Default Gcode Path Control");
+			// 
+			// GPA
+			// 
+			this.GPA.FormattingEnabled = true;
+			this.GPA.Location = new System.Drawing.Point(493, 238);
+			this.GPA.Name = "GPA";
+			this.GPA.Size = new System.Drawing.Size(121, 24);
+			this.GPA.TabIndex = 43;
+			this.GPA.Text = "";
+			this.toolTip.SetToolTip(this.GPA, "Default Gcode Path Control");
+			this.GPA.ValueChanged += new System.EventHandler(this.Setting_Changed);
 			// 
 			// label22
 			// 
@@ -535,6 +586,17 @@
 			this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.toolTip.SetToolTip(this.label22, "Default Gcode Coord System");
 			// 
+			// GCO
+			// 
+			this.GCO.FormattingEnabled = true;
+			this.GCO.Location = new System.Drawing.Point(493, 208);
+			this.GCO.Name = "GCO";
+			this.GCO.Size = new System.Drawing.Size(121, 24);
+			this.GCO.TabIndex = 41;
+			this.GCO.Text = "";
+			this.toolTip.SetToolTip(this.GCO, "Default Gcode Coord System");
+			this.GCO.ValueChanged += new System.EventHandler(this.Setting_Changed);
+			// 
 			// label21
 			// 
 			this.label21.Location = new System.Drawing.Point(447, 178);
@@ -545,6 +607,17 @@
 			this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.toolTip.SetToolTip(this.label21, "Default Gcode Units Mode");
 			// 
+			// GUN
+			// 
+			this.GUN.FormattingEnabled = true;
+			this.GUN.Location = new System.Drawing.Point(493, 178);
+			this.GUN.Name = "GUN";
+			this.GUN.Size = new System.Drawing.Size(121, 24);
+			this.GUN.TabIndex = 39;
+			this.GUN.Text = "";
+			this.toolTip.SetToolTip(this.GUN, "Default Gcode Units Mode");
+			this.GUN.ValueChanged += new System.EventHandler(this.Setting_Changed);
+			// 
 			// label20
 			// 
 			this.label20.Location = new System.Drawing.Point(447, 148);
@@ -554,6 +627,17 @@
 			this.label20.Text = "GPL";
 			this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.toolTip.SetToolTip(this.label20, "Default Gcode Plane");
+			// 
+			// GPL
+			// 
+			this.GPL.FormattingEnabled = true;
+			this.GPL.Location = new System.Drawing.Point(493, 148);
+			this.GPL.Name = "GPL";
+			this.GPL.Size = new System.Drawing.Size(121, 24);
+			this.GPL.TabIndex = 37;
+			this.GPL.Text = "";
+			this.toolTip.SetToolTip(this.GPL, "Default Gcode Plane");
+			this.GPL.ValueChanged += new System.EventHandler(this.Setting_Changed);
 			// 
 			// label19
 			// 
@@ -575,6 +659,28 @@
 			this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.toolTip.SetToolTip(this.label18, "Expand LF to CRLF on TX");
 			// 
+			// EE
+			// 
+			this.EE.FormattingEnabled = true;
+			this.EE.Location = new System.Drawing.Point(493, 63);
+			this.EE.Name = "EE";
+			this.EE.Size = new System.Drawing.Size(121, 24);
+			this.EE.TabIndex = 34;
+			this.EE.Text = "";
+			this.toolTip.SetToolTip(this.EE, "Enable Echo");
+			this.EE.ValueChanged += new System.EventHandler(this.Setting_Changed);
+			// 
+			// EC
+			// 
+			this.EC.FormattingEnabled = true;
+			this.EC.Location = new System.Drawing.Point(493, 35);
+			this.EC.Name = "EC";
+			this.EC.Size = new System.Drawing.Size(121, 24);
+			this.EC.TabIndex = 33;
+			this.EC.Text = "";
+			this.toolTip.SetToolTip(this.EC, "Expand LF to CRLF on TX");
+			this.EC.ValueChanged += new System.EventHandler(this.Setting_Changed);
+			// 
 			// label17
 			// 
 			this.label17.Location = new System.Drawing.Point(447, 7);
@@ -584,6 +690,17 @@
 			this.label17.Text = "IC";
 			this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.toolTip.SetToolTip(this.label17, "Ignore CR or LF on RX");
+			// 
+			// IC
+			// 
+			this.IC.FormattingEnabled = true;
+			this.IC.Location = new System.Drawing.Point(493, 7);
+			this.IC.Name = "IC";
+			this.IC.Size = new System.Drawing.Size(121, 24);
+			this.IC.TabIndex = 31;
+			this.IC.Text = "";
+			this.toolTip.SetToolTip(this.IC, "Ignore CR or LF on RX");
+			this.IC.ValueChanged += new System.EventHandler(this.Setting_Changed);
 			// 
 			// label16
 			// 
@@ -614,6 +731,17 @@
 			this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.toolTip.SetToolTip(this.label15, "Enable XON/XOFF");
 			// 
+			// EX
+			// 
+			this.EX.FormattingEnabled = true;
+			this.EX.Location = new System.Drawing.Point(493, 90);
+			this.EX.Name = "EX";
+			this.EX.Size = new System.Drawing.Size(121, 24);
+			this.EX.TabIndex = 27;
+			this.EX.Text = "";
+			this.toolTip.SetToolTip(this.EX, "Enable XON/XOFF");
+			this.EX.ValueChanged += new System.EventHandler(this.Setting_Changed);
+			// 
 			// label14
 			// 
 			this.label14.Location = new System.Drawing.Point(218, 209);
@@ -624,6 +752,17 @@
 			this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.toolTip.SetToolTip(this.label14, "Status Report Verbosity");
 			// 
+			// SV
+			// 
+			this.SV.FormattingEnabled = true;
+			this.SV.Location = new System.Drawing.Point(263, 208);
+			this.SV.Name = "SV";
+			this.SV.Size = new System.Drawing.Size(121, 24);
+			this.SV.TabIndex = 25;
+			this.SV.Text = "";
+			this.toolTip.SetToolTip(this.SV, "Status Report Verbosity");
+			this.SV.ValueChanged += new System.EventHandler(this.Setting_Changed);
+			// 
 			// label13
 			// 
 			this.label13.Location = new System.Drawing.Point(218, 179);
@@ -632,6 +771,17 @@
 			this.label13.TabIndex = 24;
 			this.label13.Text = "QV";
 			this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// QV
+			// 
+			this.QV.FormattingEnabled = true;
+			this.QV.Location = new System.Drawing.Point(263, 178);
+			this.QV.Name = "QV";
+			this.QV.Size = new System.Drawing.Size(121, 24);
+			this.QV.TabIndex = 23;
+			this.QV.Text = "";
+			this.toolTip.SetToolTip(this.QV, "Queue Report Verbosity");
+			this.QV.ValueChanged += new System.EventHandler(this.Setting_Changed);
 			// 
 			// label12
 			// 
@@ -642,6 +792,17 @@
 			this.label12.Text = "TV";
 			this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
+			// TV
+			// 
+			this.TV.FormattingEnabled = true;
+			this.TV.Location = new System.Drawing.Point(264, 148);
+			this.TV.Name = "TV";
+			this.TV.Size = new System.Drawing.Size(121, 24);
+			this.TV.TabIndex = 21;
+			this.TV.Text = "";
+			this.toolTip.SetToolTip(this.TV, "Text Verbosity");
+			this.TV.ValueChanged += new System.EventHandler(this.Setting_Changed);
+			// 
 			// label11
 			// 
 			this.label11.Location = new System.Drawing.Point(218, 118);
@@ -650,6 +811,17 @@
 			this.label11.TabIndex = 19;
 			this.label11.Text = "JV";
 			this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// JV
+			// 
+			this.JV.FormattingEnabled = true;
+			this.JV.Location = new System.Drawing.Point(263, 118);
+			this.JV.Name = "JV";
+			this.JV.Size = new System.Drawing.Size(121, 24);
+			this.JV.TabIndex = 18;
+			this.JV.Text = "";
+			this.toolTip.SetToolTip(this.JV, "Json Verbosity");
+			this.JV.ValueChanged += new System.EventHandler(this.Setting_Changed);
 			// 
 			// label10
 			// 
@@ -660,6 +832,17 @@
 			this.label10.Text = "EJ";
 			this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
+			// EJ
+			// 
+			this.EJ.FormattingEnabled = true;
+			this.EJ.Location = new System.Drawing.Point(263, 90);
+			this.EJ.Name = "EJ";
+			this.EJ.Size = new System.Drawing.Size(121, 24);
+			this.EJ.TabIndex = 16;
+			this.EJ.Text = "";
+			this.toolTip.SetToolTip(this.EJ, "Json Mode Enable");
+			this.EJ.ValueChanged += new System.EventHandler(this.Setting_Changed);
+			// 
 			// label9
 			// 
 			this.label9.Location = new System.Drawing.Point(218, 63);
@@ -668,6 +851,33 @@
 			this.label9.TabIndex = 15;
 			this.label9.Text = "ST";
 			this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// ST
+			// 
+			this.ST.FormattingEnabled = true;
+			this.ST.Location = new System.Drawing.Point(263, 63);
+			this.ST.Name = "ST";
+			this.ST.Size = new System.Drawing.Size(121, 24);
+			this.ST.TabIndex = 14;
+			this.ST.Text = "";
+			this.toolTip.SetToolTip(this.ST, "Switch Type");
+			this.ST.ValueChanged += new System.EventHandler(this.Setting_Changed);
+			// 
+			// CT
+			// 
+			this.CT.Location = new System.Drawing.Point(264, 35);
+			this.CT.Name = "CT";
+			this.CT.Size = new System.Drawing.Size(120, 24);
+			this.CT.TabIndex = 13;
+			this.CT.ValueChanged += new System.EventHandler(this.Setting_Changed);
+			// 
+			// JA
+			// 
+			this.JA.Location = new System.Drawing.Point(264, 7);
+			this.JA.Name = "JA";
+			this.JA.Size = new System.Drawing.Size(120, 24);
+			this.JA.TabIndex = 12;
+			this.JA.ValueChanged += new System.EventHandler(this.Setting_Changed);
 			// 
 			// label8
 			// 
@@ -772,6 +982,46 @@
 			this.PageMotors.Text = "Motors";
 			this.PageMotors.UseVisualStyleBackColor = true;
 			// 
+			// Motor4
+			// 
+			this.Motor4.Caption = "Motor 4";
+			this.Motor4.Location = new System.Drawing.Point(475, 6);
+			this.Motor4.Motor = null;
+			this.Motor4.Name = "Motor4";
+			this.Motor4.Size = new System.Drawing.Size(150, 292);
+			this.Motor4.TabIndex = 3;
+			this.Motor4.ValueChanged += new System.EventHandler(this.Setting_Changed);
+			// 
+			// Motor3
+			// 
+			this.Motor3.Caption = "Motor 3";
+			this.Motor3.Location = new System.Drawing.Point(318, 6);
+			this.Motor3.Motor = null;
+			this.Motor3.Name = "Motor3";
+			this.Motor3.Size = new System.Drawing.Size(150, 292);
+			this.Motor3.TabIndex = 2;
+			this.Motor3.ValueChanged += new System.EventHandler(this.Setting_Changed);
+			// 
+			// Motor2
+			// 
+			this.Motor2.Caption = "Motor 2";
+			this.Motor2.Location = new System.Drawing.Point(162, 6);
+			this.Motor2.Motor = null;
+			this.Motor2.Name = "Motor2";
+			this.Motor2.Size = new System.Drawing.Size(150, 292);
+			this.Motor2.TabIndex = 1;
+			this.Motor2.ValueChanged += new System.EventHandler(this.Setting_Changed);
+			// 
+			// Motor1
+			// 
+			this.Motor1.Caption = "Motor 1";
+			this.Motor1.Location = new System.Drawing.Point(6, 6);
+			this.Motor1.Motor = null;
+			this.Motor1.Name = "Motor1";
+			this.Motor1.Size = new System.Drawing.Size(150, 292);
+			this.Motor1.TabIndex = 0;
+			this.Motor1.ValueChanged += new System.EventHandler(this.Setting_Changed);
+			// 
 			// PageAxises
 			// 
 			this.PageAxises.Controls.Add(this.AxisA);
@@ -784,6 +1034,42 @@
 			this.PageAxises.TabIndex = 4;
 			this.PageAxises.Text = "Axises";
 			this.PageAxises.UseVisualStyleBackColor = true;
+			// 
+			// AxisA
+			// 
+			this.AxisA.Axis = null;
+			this.AxisA.Caption = "A";
+			this.AxisA.Location = new System.Drawing.Point(474, 6);
+			this.AxisA.Name = "AxisA";
+			this.AxisA.Size = new System.Drawing.Size(150, 391);
+			this.AxisA.TabIndex = 3;
+			// 
+			// AxisZ
+			// 
+			this.AxisZ.Axis = null;
+			this.AxisZ.Caption = "Z";
+			this.AxisZ.Location = new System.Drawing.Point(318, 6);
+			this.AxisZ.Name = "AxisZ";
+			this.AxisZ.Size = new System.Drawing.Size(150, 391);
+			this.AxisZ.TabIndex = 2;
+			// 
+			// AxisY
+			// 
+			this.AxisY.Axis = null;
+			this.AxisY.Caption = "Y";
+			this.AxisY.Location = new System.Drawing.Point(162, 6);
+			this.AxisY.Name = "AxisY";
+			this.AxisY.Size = new System.Drawing.Size(150, 391);
+			this.AxisY.TabIndex = 1;
+			// 
+			// AxisX
+			// 
+			this.AxisX.Axis = null;
+			this.AxisX.Caption = "X";
+			this.AxisX.Location = new System.Drawing.Point(6, 6);
+			this.AxisX.Name = "AxisX";
+			this.AxisX.Size = new System.Drawing.Size(150, 391);
+			this.AxisX.TabIndex = 0;
 			// 
 			// Page1
 			// 
@@ -1039,9 +1325,9 @@
 			this.Page2.Controls.Add(this.SentRowsLbl);
 			this.Page2.Controls.Add(this.label1);
 			this.Page2.Controls.Add(this.RowsInFileLbl);
-			this.Page2.Controls.Add(this.StopPrintBtn);
-			this.Page2.Controls.Add(this.BrowseBtn);
-			this.Page2.Controls.Add(this.PrintBtn);
+			this.Page2.Controls.Add(this.Stop_Btn);
+			this.Page2.Controls.Add(this.Load_Btn);
+			this.Page2.Controls.Add(this.Send_Btn);
 			this.Page2.Location = new System.Drawing.Point(4, 25);
 			this.Page2.Name = "Page2";
 			this.Page2.Padding = new System.Windows.Forms.Padding(3);
@@ -1187,11 +1473,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.TabLogGraph.Controls.Add(this.PageLog);
 			this.TabLogGraph.Controls.Add(this.PageGraph);
+			this.TabLogGraph.Controls.Add(this.PageGCode);
 			this.TabLogGraph.Location = new System.Drawing.Point(650, 6);
 			this.TabLogGraph.Name = "TabLogGraph";
 			this.TabLogGraph.SelectedIndex = 0;
 			this.TabLogGraph.Size = new System.Drawing.Size(532, 569);
 			this.TabLogGraph.TabIndex = 52;
+			this.TabLogGraph.SelectedIndexChanged += new System.EventHandler(this.TabLogGraph_SelectedIndexChanged);
 			// 
 			// PageLog
 			// 
@@ -1203,6 +1491,24 @@
 			this.PageLog.TabIndex = 0;
 			this.PageLog.Text = "Log";
 			this.PageLog.UseVisualStyleBackColor = true;
+			// 
+			// Log
+			// 
+			this.Log.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.LogColumn1});
+			this.Log.CurrentLine = 0;
+			this.Log.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.Log.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.Log.FullRowSelect = true;
+			this.Log.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+			this.Log.Location = new System.Drawing.Point(3, 3);
+			this.Log.Margin = new System.Windows.Forms.Padding(4);
+			this.Log.Name = "Log";
+			this.Log.SavedLine = 0;
+			this.Log.Size = new System.Drawing.Size(518, 534);
+			this.Log.TabIndex = 15;
+			this.Log.UseCompatibleStateImageBehavior = false;
+			this.Log.View = System.Windows.Forms.View.Details;
 			// 
 			// PageGraph
 			// 
@@ -1246,6 +1552,129 @@
 			this.GPlotPicture.TabIndex = 0;
 			this.GPlotPicture.TabStop = false;
 			// 
+			// PageGCode
+			// 
+			this.PageGCode.Controls.Add(this.GCodes);
+			this.PageGCode.Location = new System.Drawing.Point(4, 25);
+			this.PageGCode.Name = "PageGCode";
+			this.PageGCode.Size = new System.Drawing.Size(524, 540);
+			this.PageGCode.TabIndex = 2;
+			this.PageGCode.Text = "G-Code";
+			this.PageGCode.UseVisualStyleBackColor = true;
+			// 
+			// GCodes
+			// 
+			this.GCodes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnBP,
+            this.columnGCode});
+			this.GCodes.ContextMenuStrip = this.GCodeMenu;
+			this.GCodes.CurrentLine = 0;
+			this.GCodes.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.GCodes.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.GCodes.FullRowSelect = true;
+			this.GCodes.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+			this.GCodes.Location = new System.Drawing.Point(0, 0);
+			this.GCodes.Margin = new System.Windows.Forms.Padding(4);
+			this.GCodes.MultiSelect = false;
+			this.GCodes.Name = "GCodes";
+			this.GCodes.SavedLine = 0;
+			this.GCodes.Size = new System.Drawing.Size(524, 540);
+			this.GCodes.SmallImageList = this.GCodeImages;
+			this.GCodes.TabIndex = 16;
+			this.GCodes.UseCompatibleStateImageBehavior = false;
+			this.GCodes.View = System.Windows.Forms.View.Details;
+			// 
+			// columnBP
+			// 
+			this.columnBP.Text = "";
+			this.columnBP.Width = 24;
+			// 
+			// columnGCode
+			// 
+			this.columnGCode.Text = "GCode";
+			// 
+			// GCodeMenu
+			// 
+			this.GCodeMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mi_Run,
+            this.mi_RunToCursor,
+            this.mi_Step,
+            this.mi_Stop,
+            this.toolStripMenuItem1,
+            this.mi_ToggleBP,
+            this.mi_DeleteAllBP,
+            this.toolStripMenuItem2,
+            this.mi_NextCommand});
+			this.GCodeMenu.Name = "GCodeMenu";
+			this.GCodeMenu.Size = new System.Drawing.Size(311, 206);
+			// 
+			// mi_Run
+			// 
+			this.mi_Run.Name = "mi_Run";
+			this.mi_Run.ShortcutKeys = System.Windows.Forms.Keys.F5;
+			this.mi_Run.Size = new System.Drawing.Size(310, 24);
+			this.mi_Run.Text = "Start";
+			this.mi_Run.Click += new System.EventHandler(this.mi_Run_Click);
+			// 
+			// mi_Step
+			// 
+			this.mi_Step.Name = "mi_Step";
+			this.mi_Step.ShortcutKeys = System.Windows.Forms.Keys.F10;
+			this.mi_Step.Size = new System.Drawing.Size(310, 24);
+			this.mi_Step.Text = "Step";
+			this.mi_Step.Click += new System.EventHandler(this.mi_Step_Click);
+			// 
+			// mi_Stop
+			// 
+			this.mi_Stop.Name = "mi_Stop";
+			this.mi_Stop.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F5)));
+			this.mi_Stop.Size = new System.Drawing.Size(310, 24);
+			this.mi_Stop.Text = "Stop";
+			this.mi_Stop.Click += new System.EventHandler(this.mi_Stop_Click);
+			// 
+			// toolStripMenuItem1
+			// 
+			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(307, 6);
+			// 
+			// mi_ToggleBP
+			// 
+			this.mi_ToggleBP.Name = "mi_ToggleBP";
+			this.mi_ToggleBP.ShortcutKeys = System.Windows.Forms.Keys.F9;
+			this.mi_ToggleBP.Size = new System.Drawing.Size(310, 24);
+			this.mi_ToggleBP.Text = "Toggle BP";
+			this.mi_ToggleBP.Click += new System.EventHandler(this.mi_ToggleBP_Click);
+			// 
+			// mi_DeleteAllBP
+			// 
+			this.mi_DeleteAllBP.Name = "mi_DeleteAllBP";
+			this.mi_DeleteAllBP.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.F9)));
+			this.mi_DeleteAllBP.Size = new System.Drawing.Size(310, 24);
+			this.mi_DeleteAllBP.Text = "Delete All BP";
+			this.mi_DeleteAllBP.Click += new System.EventHandler(this.mi_DeleteAllBP_Click);
+			// 
+			// toolStripMenuItem2
+			// 
+			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+			this.toolStripMenuItem2.Size = new System.Drawing.Size(307, 6);
+			// 
+			// mi_NextCommand
+			// 
+			this.mi_NextCommand.Name = "mi_NextCommand";
+			this.mi_NextCommand.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.F10)));
+			this.mi_NextCommand.Size = new System.Drawing.Size(310, 24);
+			this.mi_NextCommand.Text = "Set Next command";
+			this.mi_NextCommand.Click += new System.EventHandler(this.mi_NextCommand_Click);
+			// 
+			// GCodeImages
+			// 
+			this.GCodeImages.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("GCodeImages.ImageStream")));
+			this.GCodeImages.TransparentColor = System.Drawing.Color.Transparent;
+			this.GCodeImages.Images.SetKeyName(0, "empty-16x16.png");
+			this.GCodeImages.Images.SetKeyName(1, "circle-red-16x16.png");
+			// 
 			// Set_mm_Btn
 			// 
 			this.Set_mm_Btn.Location = new System.Drawing.Point(369, 13);
@@ -1284,295 +1713,32 @@
 			this.Firmware_Btn.UseVisualStyleBackColor = true;
 			this.Firmware_Btn.Click += new System.EventHandler(this.Firmware_Btn_Click);
 			// 
-			// Log
+			// Debug_Btn
 			// 
-			this.Log.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.LogColumn1});
-			this.Log.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.Log.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.Log.FullRowSelect = true;
-			this.Log.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-			this.Log.Location = new System.Drawing.Point(3, 3);
-			this.Log.Margin = new System.Windows.Forms.Padding(4);
-			this.Log.Name = "Log";
-			this.Log.Size = new System.Drawing.Size(518, 534);
-			this.Log.TabIndex = 15;
-			this.Log.UseCompatibleStateImageBehavior = false;
-			this.Log.View = System.Windows.Forms.View.Details;
+			this.Debug_Btn.Enabled = false;
+			this.Debug_Btn.Location = new System.Drawing.Point(811, 5);
+			this.Debug_Btn.Name = "Debug_Btn";
+			this.Debug_Btn.Size = new System.Drawing.Size(75, 25);
+			this.Debug_Btn.TabIndex = 17;
+			this.Debug_Btn.Text = "Debug";
+			this.Debug_Btn.UseVisualStyleBackColor = true;
+			this.Debug_Btn.Visible = false;
+			this.Debug_Btn.Click += new System.EventHandler(this.Debug_Btn_Click);
 			// 
-			// BAUD
+			// mi_RunToCursor
 			// 
-			this.BAUD.FormattingEnabled = true;
-			this.BAUD.Location = new System.Drawing.Point(263, 268);
-			this.BAUD.Name = "BAUD";
-			this.BAUD.Size = new System.Drawing.Size(121, 24);
-			this.BAUD.TabIndex = 48;
-			this.BAUD.Text = "";
-			this.toolTip.SetToolTip(this.BAUD, "USB Baud Rate");
-			this.BAUD.ValueChanged += new System.EventHandler(this.Setting_Changed);
-			// 
-			// GDI
-			// 
-			this.GDI.FormattingEnabled = true;
-			this.GDI.Location = new System.Drawing.Point(493, 268);
-			this.GDI.Name = "GDI";
-			this.GDI.Size = new System.Drawing.Size(121, 24);
-			this.GDI.TabIndex = 45;
-			this.GDI.Text = "";
-			this.toolTip.SetToolTip(this.GDI, "Default Gcode Distance Mode");
-			this.GDI.ValueChanged += new System.EventHandler(this.Setting_Changed);
-			// 
-			// GPA
-			// 
-			this.GPA.FormattingEnabled = true;
-			this.GPA.Location = new System.Drawing.Point(493, 238);
-			this.GPA.Name = "GPA";
-			this.GPA.Size = new System.Drawing.Size(121, 24);
-			this.GPA.TabIndex = 43;
-			this.GPA.Text = "";
-			this.toolTip.SetToolTip(this.GPA, "Default Gcode Path Control");
-			this.GPA.ValueChanged += new System.EventHandler(this.Setting_Changed);
-			// 
-			// GCO
-			// 
-			this.GCO.FormattingEnabled = true;
-			this.GCO.Location = new System.Drawing.Point(493, 208);
-			this.GCO.Name = "GCO";
-			this.GCO.Size = new System.Drawing.Size(121, 24);
-			this.GCO.TabIndex = 41;
-			this.GCO.Text = "";
-			this.toolTip.SetToolTip(this.GCO, "Default Gcode Coord System");
-			this.GCO.ValueChanged += new System.EventHandler(this.Setting_Changed);
-			// 
-			// GUN
-			// 
-			this.GUN.FormattingEnabled = true;
-			this.GUN.Location = new System.Drawing.Point(493, 178);
-			this.GUN.Name = "GUN";
-			this.GUN.Size = new System.Drawing.Size(121, 24);
-			this.GUN.TabIndex = 39;
-			this.GUN.Text = "";
-			this.toolTip.SetToolTip(this.GUN, "Default Gcode Units Mode");
-			this.GUN.ValueChanged += new System.EventHandler(this.Setting_Changed);
-			// 
-			// GPL
-			// 
-			this.GPL.FormattingEnabled = true;
-			this.GPL.Location = new System.Drawing.Point(493, 148);
-			this.GPL.Name = "GPL";
-			this.GPL.Size = new System.Drawing.Size(121, 24);
-			this.GPL.TabIndex = 37;
-			this.GPL.Text = "";
-			this.toolTip.SetToolTip(this.GPL, "Default Gcode Plane");
-			this.GPL.ValueChanged += new System.EventHandler(this.Setting_Changed);
-			// 
-			// EE
-			// 
-			this.EE.FormattingEnabled = true;
-			this.EE.Location = new System.Drawing.Point(493, 63);
-			this.EE.Name = "EE";
-			this.EE.Size = new System.Drawing.Size(121, 24);
-			this.EE.TabIndex = 34;
-			this.EE.Text = "";
-			this.toolTip.SetToolTip(this.EE, "Enable Echo");
-			this.EE.ValueChanged += new System.EventHandler(this.Setting_Changed);
-			// 
-			// EC
-			// 
-			this.EC.FormattingEnabled = true;
-			this.EC.Location = new System.Drawing.Point(493, 35);
-			this.EC.Name = "EC";
-			this.EC.Size = new System.Drawing.Size(121, 24);
-			this.EC.TabIndex = 33;
-			this.EC.Text = "";
-			this.toolTip.SetToolTip(this.EC, "Expand LF to CRLF on TX");
-			this.EC.ValueChanged += new System.EventHandler(this.Setting_Changed);
-			// 
-			// IC
-			// 
-			this.IC.FormattingEnabled = true;
-			this.IC.Location = new System.Drawing.Point(493, 7);
-			this.IC.Name = "IC";
-			this.IC.Size = new System.Drawing.Size(121, 24);
-			this.IC.TabIndex = 31;
-			this.IC.Text = "";
-			this.toolTip.SetToolTip(this.IC, "Ignore CR or LF on RX");
-			this.IC.ValueChanged += new System.EventHandler(this.Setting_Changed);
-			// 
-			// EX
-			// 
-			this.EX.FormattingEnabled = true;
-			this.EX.Location = new System.Drawing.Point(493, 90);
-			this.EX.Name = "EX";
-			this.EX.Size = new System.Drawing.Size(121, 24);
-			this.EX.TabIndex = 27;
-			this.EX.Text = "";
-			this.toolTip.SetToolTip(this.EX, "Enable XON/XOFF");
-			this.EX.ValueChanged += new System.EventHandler(this.Setting_Changed);
-			// 
-			// SV
-			// 
-			this.SV.FormattingEnabled = true;
-			this.SV.Location = new System.Drawing.Point(263, 208);
-			this.SV.Name = "SV";
-			this.SV.Size = new System.Drawing.Size(121, 24);
-			this.SV.TabIndex = 25;
-			this.SV.Text = "";
-			this.toolTip.SetToolTip(this.SV, "Status Report Verbosity");
-			this.SV.ValueChanged += new System.EventHandler(this.Setting_Changed);
-			// 
-			// QV
-			// 
-			this.QV.FormattingEnabled = true;
-			this.QV.Location = new System.Drawing.Point(263, 178);
-			this.QV.Name = "QV";
-			this.QV.Size = new System.Drawing.Size(121, 24);
-			this.QV.TabIndex = 23;
-			this.QV.Text = "";
-			this.toolTip.SetToolTip(this.QV, "Queue Report Verbosity");
-			this.QV.ValueChanged += new System.EventHandler(this.Setting_Changed);
-			// 
-			// TV
-			// 
-			this.TV.FormattingEnabled = true;
-			this.TV.Location = new System.Drawing.Point(264, 148);
-			this.TV.Name = "TV";
-			this.TV.Size = new System.Drawing.Size(121, 24);
-			this.TV.TabIndex = 21;
-			this.TV.Text = "";
-			this.toolTip.SetToolTip(this.TV, "Text Verbosity");
-			this.TV.ValueChanged += new System.EventHandler(this.Setting_Changed);
-			// 
-			// JV
-			// 
-			this.JV.FormattingEnabled = true;
-			this.JV.Location = new System.Drawing.Point(263, 118);
-			this.JV.Name = "JV";
-			this.JV.Size = new System.Drawing.Size(121, 24);
-			this.JV.TabIndex = 18;
-			this.JV.Text = "";
-			this.toolTip.SetToolTip(this.JV, "Json Verbosity");
-			this.JV.ValueChanged += new System.EventHandler(this.Setting_Changed);
-			// 
-			// EJ
-			// 
-			this.EJ.FormattingEnabled = true;
-			this.EJ.Location = new System.Drawing.Point(263, 90);
-			this.EJ.Name = "EJ";
-			this.EJ.Size = new System.Drawing.Size(121, 24);
-			this.EJ.TabIndex = 16;
-			this.EJ.Text = "";
-			this.toolTip.SetToolTip(this.EJ, "Json Mode Enable");
-			this.EJ.ValueChanged += new System.EventHandler(this.Setting_Changed);
-			// 
-			// ST
-			// 
-			this.ST.FormattingEnabled = true;
-			this.ST.Location = new System.Drawing.Point(263, 63);
-			this.ST.Name = "ST";
-			this.ST.Size = new System.Drawing.Size(121, 24);
-			this.ST.TabIndex = 14;
-			this.ST.Text = "";
-			this.toolTip.SetToolTip(this.ST, "Switch Type");
-			this.ST.ValueChanged += new System.EventHandler(this.Setting_Changed);
-			// 
-			// CT
-			// 
-			this.CT.Location = new System.Drawing.Point(264, 35);
-			this.CT.Name = "CT";
-			this.CT.Size = new System.Drawing.Size(120, 24);
-			this.CT.TabIndex = 13;
-			this.CT.ValueChanged += new System.EventHandler(this.Setting_Changed);
-			// 
-			// JA
-			// 
-			this.JA.Location = new System.Drawing.Point(264, 7);
-			this.JA.Name = "JA";
-			this.JA.Size = new System.Drawing.Size(120, 24);
-			this.JA.TabIndex = 12;
-			this.JA.ValueChanged += new System.EventHandler(this.Setting_Changed);
-			// 
-			// Motor4
-			// 
-			this.Motor4.Caption = "Motor 4";
-			this.Motor4.Location = new System.Drawing.Point(475, 6);
-			this.Motor4.Motor = null;
-			this.Motor4.Name = "Motor4";
-			this.Motor4.Size = new System.Drawing.Size(150, 292);
-			this.Motor4.TabIndex = 3;
-			this.Motor4.ValueChanged += new System.EventHandler(this.Setting_Changed);
-			// 
-			// Motor3
-			// 
-			this.Motor3.Caption = "Motor 3";
-			this.Motor3.Location = new System.Drawing.Point(318, 6);
-			this.Motor3.Motor = null;
-			this.Motor3.Name = "Motor3";
-			this.Motor3.Size = new System.Drawing.Size(150, 292);
-			this.Motor3.TabIndex = 2;
-			this.Motor3.ValueChanged += new System.EventHandler(this.Setting_Changed);
-			// 
-			// Motor2
-			// 
-			this.Motor2.Caption = "Motor 2";
-			this.Motor2.Location = new System.Drawing.Point(162, 6);
-			this.Motor2.Motor = null;
-			this.Motor2.Name = "Motor2";
-			this.Motor2.Size = new System.Drawing.Size(150, 292);
-			this.Motor2.TabIndex = 1;
-			this.Motor2.ValueChanged += new System.EventHandler(this.Setting_Changed);
-			// 
-			// Motor1
-			// 
-			this.Motor1.Caption = "Motor 1";
-			this.Motor1.Location = new System.Drawing.Point(6, 6);
-			this.Motor1.Motor = null;
-			this.Motor1.Name = "Motor1";
-			this.Motor1.Size = new System.Drawing.Size(150, 292);
-			this.Motor1.TabIndex = 0;
-			this.Motor1.ValueChanged += new System.EventHandler(this.Setting_Changed);
-			// 
-			// AxisA
-			// 
-			this.AxisA.Axis = null;
-			this.AxisA.Caption = "A";
-			this.AxisA.Location = new System.Drawing.Point(474, 6);
-			this.AxisA.Name = "AxisA";
-			this.AxisA.Size = new System.Drawing.Size(150, 391);
-			this.AxisA.TabIndex = 3;
-			// 
-			// AxisZ
-			// 
-			this.AxisZ.Axis = null;
-			this.AxisZ.Caption = "Z";
-			this.AxisZ.Location = new System.Drawing.Point(318, 6);
-			this.AxisZ.Name = "AxisZ";
-			this.AxisZ.Size = new System.Drawing.Size(150, 391);
-			this.AxisZ.TabIndex = 2;
-			// 
-			// AxisY
-			// 
-			this.AxisY.Axis = null;
-			this.AxisY.Caption = "Y";
-			this.AxisY.Location = new System.Drawing.Point(162, 6);
-			this.AxisY.Name = "AxisY";
-			this.AxisY.Size = new System.Drawing.Size(150, 391);
-			this.AxisY.TabIndex = 1;
-			// 
-			// AxisX
-			// 
-			this.AxisX.Axis = null;
-			this.AxisX.Caption = "X";
-			this.AxisX.Location = new System.Drawing.Point(6, 6);
-			this.AxisX.Name = "AxisX";
-			this.AxisX.Size = new System.Drawing.Size(150, 391);
-			this.AxisX.TabIndex = 0;
+			this.mi_RunToCursor.Name = "mi_RunToCursor";
+			this.mi_RunToCursor.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F10)));
+			this.mi_RunToCursor.Size = new System.Drawing.Size(310, 24);
+			this.mi_RunToCursor.Text = "Run to cursor";
+			this.mi_RunToCursor.Click += new System.EventHandler(this.mi_RunToCursor_Click);
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1182, 600);
+			this.Controls.Add(this.Debug_Btn);
 			this.Controls.Add(this.Firmware_Btn);
 			this.Controls.Add(this.Default_Btn);
 			this.Controls.Add(this.Set_mm_Btn);
@@ -1612,6 +1778,8 @@
 			this.PageGraph.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.ZLevel)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.GPlotPicture)).EndInit();
+			this.PageGCode.ResumeLayout(false);
+			this.GCodeMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -1621,18 +1789,18 @@
 
 		private System.IO.Ports.SerialPort serialPort;
 		private System.Windows.Forms.OpenFileDialog openFileDialog;
-		private System.Windows.Forms.Button BrowseBtn;
+		private System.Windows.Forms.Button Load_Btn;
 		private System.Windows.Forms.Button StartBtn;
 		private System.Windows.Forms.TextBox FileName;
 		private System.Windows.Forms.Button StopBtn;
 		private System.Windows.Forms.TextBox CommandLine;
-		private System.Windows.Forms.Button PrintBtn;
+		private System.Windows.Forms.Button Send_Btn;
 		private System.Windows.Forms.ComboBox PortsList;
 		private System.Windows.Forms.Button ReloadBtn;
 		private System.Windows.Forms.Label RowsInFileLbl;
 		private System.Windows.Forms.Label SentRowsLbl;
-		private System.Windows.Forms.Button StopPrintBtn;
-		private CNCGUI.ListViewEx Log;
+		private System.Windows.Forms.Button Stop_Btn;
+		private CNCGUI.GCodeListView Log;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label1;
@@ -1748,5 +1916,21 @@
 		private System.Windows.Forms.TextBox CurrentX2;
 		private System.Windows.Forms.Button Default_Btn;
 		private System.Windows.Forms.Button Firmware_Btn;
+		private System.Windows.Forms.TabPage PageGCode;
+		private GCodeListView GCodes;
+		private System.Windows.Forms.ColumnHeader columnGCode;
+		private System.Windows.Forms.ColumnHeader columnBP;
+		private System.Windows.Forms.ImageList GCodeImages;
+		private System.Windows.Forms.ContextMenuStrip GCodeMenu;
+		private System.Windows.Forms.ToolStripMenuItem mi_Run;
+		private System.Windows.Forms.ToolStripMenuItem mi_Step;
+		private System.Windows.Forms.ToolStripMenuItem mi_Stop;
+		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+		private System.Windows.Forms.ToolStripMenuItem mi_ToggleBP;
+		private System.Windows.Forms.ToolStripMenuItem mi_DeleteAllBP;
+		private System.Windows.Forms.Button Debug_Btn;
+		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+		private System.Windows.Forms.ToolStripMenuItem mi_NextCommand;
+		private System.Windows.Forms.ToolStripMenuItem mi_RunToCursor;
 	}
 }

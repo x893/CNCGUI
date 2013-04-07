@@ -69,7 +69,8 @@
     <Compile Include="AxisControl.Designer.cs">
       <DependentUpon>AxisControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ListViewEx.cs">
+    <Compile Include="GCodeListViewItem.cs" />
+    <Compile Include="GCodeListView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MotorControl.cs">
