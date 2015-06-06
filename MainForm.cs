@@ -115,7 +115,7 @@ namespace CNCGUI
 		#region Load_Btn_Click 
 		private void Load_Btn_Click(object sender, EventArgs e)
 		{
-			openFileDialog.Filter = "G-code Files|*.cnc;*.nc;*.tap;*.txt;*.gcode|All files|*.*";
+            openFileDialog.Filter = "G-code Files|*.cnc;*.nc;*.tap;*.txt;*.gcode;*.ngc|All files|*.*";
 			openFileDialog.FileName = "";
 			if (openFileDialog.ShowDialog() == DialogResult.OK)
 			{
